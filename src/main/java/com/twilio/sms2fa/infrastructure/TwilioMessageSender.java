@@ -3,6 +3,7 @@ package com.twilio.sms2fa.infrastructure;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Message;
+import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.service.MessageSender;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -22,12 +23,12 @@ public class TwilioMessageSender implements MessageSender {
     }
 
     @Override
-    public boolean sendCode(String toPhoneNumber, String code) {
+    public boolean sendCode(User user) {
         try {
             List<NameValuePair> params = asList(
                 new BasicNameValuePair("From", fromPhoneNumber),
-                new BasicNameValuePair("To", toPhoneNumber),
-                new BasicNameValuePair("Body", code)
+                new BasicNameValuePair("To", user.getPhoneNumber()),
+                new BasicNameValuePair("Body", user.getVerificationCode())
             );
             Message sms = messageFactory.create(params);
             return "queued".equals(sms.getStatus());

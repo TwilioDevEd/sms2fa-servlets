@@ -18,6 +18,6 @@ public class ConfirmationSender {
     public boolean sendConfirmationTo(User user){
         user.generateVerificationCode();
         userRepository.update(user);
-        return messageSender.sendCode(user.getPhoneNumber(), user.getVerificationCode());
+        return messageSender.sendCode(user);
     }
 }

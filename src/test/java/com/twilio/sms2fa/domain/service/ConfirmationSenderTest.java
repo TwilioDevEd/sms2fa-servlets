@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -42,7 +40,7 @@ public class ConfirmationSenderTest {
     public void shouldSendMessage(){
         confirmationSender.sendConfirmationTo(user);
 
-        verify(messageSender, only()).sendCode(eq(user.getPhoneNumber()), anyString());
+        verify(messageSender, only()).sendCode(user);
     }
 
     @Test

@@ -3,6 +3,7 @@ package com.twilio.sms2fa.infrastructure;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Message;
+import com.twilio.sms2fa.domain.model.User;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,36 +38,37 @@ public class TwilioMessageSenderTest {
 
     @Test
     public void shouldSendSmsToGivenPhoneAndCode() throws TwilioRestException {
-        String code = "123456";
-        String toPhoneNumber = "to-phone-number";
+        User user = new User("to-phone-number");
+        user.generateVerificationCode();
 
-        twilioMessageSender.sendCode(toPhoneNumber, code);
+        twilioMessageSender.sendCode(user);
 
         verify(messageFactory).create(asList(
                 new BasicNameValuePair("From", MY_TWILIO_PHONE_NUMBER),
-                new BasicNameValuePair("To", toPhoneNumber),
-                new BasicNameValuePair("Body", code)
+                new BasicNameValuePair("To", user.getPhoneNumber()),
+                new BasicNameValuePair("Body", user.getVerificationCode())
         ));
     }
 
     @Test
     public void shouldReturnTrueWhenStatusIsQueued() throws TwilioRestException {
-        String code = "123456";
-        String toPhoneNumber = "to-phone-number";
+        User user = new User("to-phone-number");
+        user.generateVerificationCode();
         when(message.getStatus()).thenReturn("queued");
 
-        boolean result = twilioMessageSender.sendCode(toPhoneNumber, code);
+        boolean result = twilioMessageSender.sendCode(user);
 
         assertTrue(result);
     }
 
     @Test
     public void shouldReturnFalseWhenStatusIsQueued() throws TwilioRestException {
-        String code = "123456";
-        String toPhoneNumber = "to-phone-number";
+        User user = new User("to-phone-number");
+        user.generateVerificationCode();
+
         when(message.getStatus()).thenReturn("failed");
 
-        boolean result = twilioMessageSender.sendCode(toPhoneNumber, code);
+        boolean result = twilioMessageSender.sendCode(user);
 
         assertFalse(result);
     }
