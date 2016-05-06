@@ -1,4 +1,4 @@
-package com.twilio.sms2fa.domain;
+package com.twilio.sms2fa.domain.service;
 
 import java.util.Random;
 

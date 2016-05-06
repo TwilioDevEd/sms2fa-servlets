@@ -1,6 +1,6 @@
-package com.twilio.sms2fa.domain;
+package com.twilio.sms2fa.domain.service;
 
-import org.junit.Before;
+import com.twilio.sms2fa.domain.service.CodeGenerator;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

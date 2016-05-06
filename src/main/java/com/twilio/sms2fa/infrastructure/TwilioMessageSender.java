@@ -3,11 +3,10 @@ package com.twilio.sms2fa.infrastructure;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Message;
-import com.twilio.sms2fa.domain.MessageSender;
+import com.twilio.sms2fa.domain.service.MessageSender;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
