@@ -35,7 +35,7 @@ public class ConfirmationSenderTest {
 
         confirmationSender.sendConfirmationTo(userSpy);
 
-        verify(userSpy).updateVerificationCode(anyString());
+        verify(userSpy).generateVerificationCode();
     }
 
     @Test

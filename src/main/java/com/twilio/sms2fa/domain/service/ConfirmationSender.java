@@ -3,8 +3,6 @@ package com.twilio.sms2fa.domain.service;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.repository.UserRepository;
 
-import static com.twilio.sms2fa.domain.service.CodeGenerator.generateConfirmationCode;
-
 
 public class ConfirmationSender {
 
@@ -18,7 +16,7 @@ public class ConfirmationSender {
 
 
     public boolean sendConfirmationTo(User user){
-        user.updateVerificationCode(generateConfirmationCode());
+        user.generateVerificationCode();
         userRepository.update(user);
         return messageSender.sendCode(user.getPhoneNumber(), user.getVerificationCode());
     }
