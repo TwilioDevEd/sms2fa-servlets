@@ -4,6 +4,7 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Message;
 import com.twilio.sms2fa.domain.model.User;
+import com.twilio.sms2fa.infrastructure.service.TwilioMessageSender;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.twilio.sms2fa.infrastructure;
+package com.twilio.sms2fa.infrastructure.service;
 
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.factory.MessageFactory;

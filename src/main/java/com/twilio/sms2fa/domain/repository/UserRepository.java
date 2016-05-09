@@ -4,6 +4,7 @@ import com.twilio.sms2fa.domain.model.User;
 
 public interface UserRepository {
 
-    void update(User user);
+    User update(User user);
 
+    User create(String firstName, String lastName, String email, String phoneNumber, String password);
 }
