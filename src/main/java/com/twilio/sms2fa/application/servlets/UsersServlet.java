@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Singleton
-public class UserServlet extends HttpServlet {
+public class UsersServlet extends HttpServlet {
 
     private UserRepository userRepository;
 
     @Inject
-    public UserServlet(UserRepository userRepository){
+    public UsersServlet(UserRepository userRepository){
         this.userRepository = userRepository;
     }
 

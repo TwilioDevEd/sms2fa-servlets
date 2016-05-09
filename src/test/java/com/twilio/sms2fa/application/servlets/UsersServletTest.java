@@ -18,9 +18,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.powermock.api.mockito.PowerMockito.when;
 
-public class UserServletTest {
+public class UsersServletTest {
 
-    private UserServlet userServlet;
+    private UsersServlet usersServlet;
 
     @Mock
     private HttpServletRequest request;
@@ -33,7 +33,7 @@ public class UserServletTest {
 
     @Before
     public void setUp(){
-        this.userServlet = new UserServlet(new UserInMemoryRepository());
+        this.usersServlet = new UsersServlet(new UserInMemoryRepository());
 
         initMocks(this);
         when(request.getSession()).thenReturn(session);
@@ -47,7 +47,7 @@ public class UserServletTest {
     @Test
     public void itShouldAddNewUserToSessionWhenPost() throws ServletException, IOException {
         //when
-        userServlet.doPost(request, response);
+        usersServlet.doPost(request, response);
 
         //then
         verify(session).setAttribute(eq("user"), any(User.class));
