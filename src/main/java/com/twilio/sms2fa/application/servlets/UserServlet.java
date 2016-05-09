@@ -29,7 +29,7 @@ public class UserServlet extends HttpServlet {
         String phoneNumber = request.getParameter("phone_number");
         String password = request.getParameter("password");
 
-        User user = userRepository.create(firstName, lastName, email, phoneNumber, password);
+        User user = userRepository.save(new User(firstName, lastName, email, phoneNumber, password));
         request.getSession().setAttribute("user", user);
     }
 }

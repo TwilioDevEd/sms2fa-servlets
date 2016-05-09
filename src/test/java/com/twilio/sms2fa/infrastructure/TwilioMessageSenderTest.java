@@ -4,6 +4,7 @@ import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Message;
 import com.twilio.sms2fa.domain.model.User;
+import com.twilio.sms2fa.domain.model.UserBuilder;
 import com.twilio.sms2fa.infrastructure.service.TwilioMessageSender;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.Before;
@@ -39,8 +40,7 @@ public class TwilioMessageSenderTest {
 
     @Test
     public void shouldSendSmsToGivenPhoneAndCode() throws TwilioRestException {
-        User user = new User("to-phone-number");
-        user.generateVerificationCode();
+        User user = new UserBuilder().build();
 
         twilioMessageSender.sendCode(user);
 
@@ -53,8 +53,7 @@ public class TwilioMessageSenderTest {
 
     @Test
     public void shouldReturnTrueWhenStatusIsQueued() throws TwilioRestException {
-        User user = new User("to-phone-number");
-        user.generateVerificationCode();
+        User user = new UserBuilder().build();
         when(message.getStatus()).thenReturn("queued");
 
         boolean result = twilioMessageSender.sendCode(user);
@@ -64,9 +63,7 @@ public class TwilioMessageSenderTest {
 
     @Test
     public void shouldReturnFalseWhenStatusIsQueued() throws TwilioRestException {
-        User user = new User("to-phone-number");
-        user.generateVerificationCode();
-
+        User user = new UserBuilder().build();
         when(message.getStatus()).thenReturn("failed");
 
         boolean result = twilioMessageSender.sendCode(user);

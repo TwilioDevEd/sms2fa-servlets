@@ -12,16 +12,20 @@ public class UserInMemoryRepository implements UserRepository {
     private long sequence = 0;
 
     @Override
-    public User create(String firstName, String lastName, String email, String phoneNumber, String password) {
-        return new User(nextSequence(), firstName, lastName, email, phoneNumber, password);
+    public User save(User user) {
+        if (user.getId() == null) {
+            user.setId(nextSequence());
+        }
+        users.put(user.getId(), user);
+        return user;
     }
 
     @Override
-    public User update(User user) {
-        return null;
+    public User findById(long id) {
+        return users.get(id);
     }
 
     public long nextSequence(){
-        return sequence++;
+        return ++sequence;
     }
 }
