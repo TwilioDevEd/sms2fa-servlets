@@ -7,4 +7,4 @@ target/
 *.iml
 *.ipr
 *.iws
-.env
+src/main/resources/application.properties
