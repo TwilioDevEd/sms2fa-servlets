@@ -67,5 +67,6 @@ public class ConfirmationsServletTest {
 
         servlet.doPost(request, response);
         verify(response, times(1)).sendRedirect("/secrets/");
+        verify(session, times(1)).setAttribute("authenticated", true);
     }
 }

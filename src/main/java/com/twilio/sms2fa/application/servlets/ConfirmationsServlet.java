@@ -28,6 +28,7 @@ public class ConfirmationsServlet extends HttpServlet {
             String verificationCode = request.getParameter("verification_code");
             User user = (User) request.getSession().getAttribute("user");
             confirmUser.confirm(user, verificationCode);
+            request.getSession().setAttribute("authenticated", true);
             response.sendRedirect("/secrets/");
         } catch (WrongVerificationCodeException e){
             request.setAttribute("errorMessage", e.getMessage());
