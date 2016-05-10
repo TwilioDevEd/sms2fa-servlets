@@ -1,11 +1,13 @@
 package com.twilio.sms2fa.infrastructure.repository;
 
+import com.google.inject.Singleton;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.repository.UserRepository;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Singleton
 public class UserInMemoryRepository implements UserRepository {
 
     private Map<Long, User> users = new HashMap<>();

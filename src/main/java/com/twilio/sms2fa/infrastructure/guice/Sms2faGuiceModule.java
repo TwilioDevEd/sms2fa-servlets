@@ -6,10 +6,9 @@ import com.google.inject.servlet.ServletModule;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Account;
-import com.twilio.sms2fa.application.servlets.ConfirmationsNewServlet;
-import com.twilio.sms2fa.application.servlets.UsersNewServlet;
-import com.twilio.sms2fa.application.servlets.UsersServlet;
+import com.twilio.sms2fa.application.servlets.*;
 import com.twilio.sms2fa.domain.repository.UserRepository;
+import com.twilio.sms2fa.domain.service.ConfirmUser;
 import com.twilio.sms2fa.domain.service.CreateUser;
 import com.twilio.sms2fa.domain.service.MessageSender;
 import com.twilio.sms2fa.infrastructure.repository.UserInMemoryRepository;
@@ -26,10 +25,13 @@ public class Sms2faGuiceModule extends ServletModule {
         serve("/users/").with(UsersServlet.class);
         serve("/users/new").with(UsersNewServlet.class);
         serve("/confirmations/new").with(ConfirmationsNewServlet.class);
+        serve("/confirmations/").with(ConfirmationsServlet.class);
+        serve("/secrets/").with(SecretsServlet.class);
 
         bind(UserRepository.class).to(UserInMemoryRepository.class);
         bind(MessageSender.class).to(TwilioMessageSender.class);
         bind(CreateUser.class);
+        bind(ConfirmUser.class);
     }
 
     @Provides
