@@ -6,6 +6,7 @@ import com.twilio.sms2fa.domain.repository.UserRepository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Singleton
 public class UserInMemoryRepository implements UserRepository {
@@ -25,6 +26,13 @@ public class UserInMemoryRepository implements UserRepository {
     @Override
     public User findById(long id) {
         return users.get(id);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return users.values().stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findFirst();
     }
 
     public long nextSequence(){

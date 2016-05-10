@@ -15,6 +15,16 @@ public class UserBuilder {
         return new User(firstName, lastName, email, phoneNumber, password);
     }
 
+    public UserBuilder withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public UserBuilder withPass(String password) {
+        this.password = password;
+        return this;
+    }
+
     public User buildWithVerificationCode(String verificationCode) {
         try {
             User user = build();

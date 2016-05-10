@@ -56,7 +56,23 @@ public class User {
         return phoneNumber;
     }
 
+    public String getEmail(){
+        return email;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
     public boolean isConfirmed() {
         return confirmed;
+    }
+
+    public void generateNewVerificationCode() {
+        this.verificationCode = generateVerificationCode();
+    }
+
+    public boolean authenticate(String password) {
+        return this.password.equals(password);
     }
 }
