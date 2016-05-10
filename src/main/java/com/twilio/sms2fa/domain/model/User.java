@@ -1,5 +1,7 @@
 package com.twilio.sms2fa.domain.model;
 
+import com.twilio.sms2fa.domain.exception.WrongVerificationCodeException;
+
 import java.util.Random;
 
 public class User {
@@ -11,6 +13,7 @@ public class User {
     private String password;
     private String verificationCode;
     private String phoneNumber;
+    private boolean confirmed;
 
     public User(String firstName, String lastName, String email, String phoneNumber, String password){
         this.firstName = firstName;
@@ -19,6 +22,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.verificationCode = generateVerificationCode();
+        this.confirmed = false;
     }
 
     public static String generateVerificationCode(){
@@ -27,6 +31,13 @@ public class User {
         Random rand = new Random();
         Integer code = rand.nextInt(max - min + 1) + min;
         return code.toString();
+    }
+
+    public void confirm(String verificationCode) {
+        if (!this.verificationCode.equals(verificationCode)){
+            throw new WrongVerificationCodeException(verificationCode);
+        }
+        confirmed = true;
     }
 
     public void setId(long id) {
@@ -43,5 +54,9 @@ public class User {
 
     public String getPhoneNumber(){
         return phoneNumber;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
     }
 }

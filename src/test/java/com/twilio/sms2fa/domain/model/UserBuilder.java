@@ -1,5 +1,7 @@
 package com.twilio.sms2fa.domain.model;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
+
 public class UserBuilder {
 
     private String firstName = "Foo";
@@ -11,5 +13,15 @@ public class UserBuilder {
 
     public User build() {
         return new User(firstName, lastName, email, phoneNumber, password);
+    }
+
+    public User buildWithVerificationCode(String verificationCode) {
+        try {
+            User user = build();
+            FieldUtils.writeField(FieldUtils.getField(User.class, "verificationCode", true), user, verificationCode);
+            return user;
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
