@@ -23,12 +23,22 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav navbar-right">
-              <li>
-                <a href="/users/new/">Sign Up</a>
-              </li>
-              <li>
-              <a href="/sessions/new/">Sign In</a>
-              </li>
+              <c:choose>
+                <c:when test="${authenticated == true}">
+                  <li>
+                    <a href="/logout/">Log out</a>
+                  </li>
+                </c:when>
+                <c:otherwise>
+                  <li>
+                    <a href="/users/new/">Sign Up</a>
+                  </li>
+                  <li>
+                  <a href="/sessions/new/">Sign In</a>
+                  </li>
+                </c:otherwise>
+              </c:choose>
+
           </ul>
         </div>
       </div>
@@ -45,7 +55,7 @@
     <div class="container">
         <h1>Welcome back</h1>
         <p>You never write. You never call. But we're glad you came, regardless! Be a pal and confirm your username and password, would you?</p>
-        <form class="form-horizontal" action="/sessions" accept-charset="UTF-8" method="post" _lpchecked="1">
+        <form class="form-horizontal" action="/sessions/" accept-charset="UTF-8" method="post" _lpchecked="1">
             <div class="form-group">
               <label class="col-md-2 control-label" for="email">Email</label>
               <div class="col-sm-10">

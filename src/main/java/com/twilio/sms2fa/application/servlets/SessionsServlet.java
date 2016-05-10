@@ -27,7 +27,7 @@ public class SessionsServlet extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             logIn.authenticate(email, password);
-            response.sendRedirect("/confirmations/new");
+            response.sendRedirect("/confirmations/new/");
         } catch (WrongUserPasswordException e){
             request.setAttribute("errorMessage", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/pages/sessions/new.jsp").forward(request, response);

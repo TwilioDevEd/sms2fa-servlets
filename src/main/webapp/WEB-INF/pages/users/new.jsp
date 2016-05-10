@@ -23,12 +23,22 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav navbar-right">
-              <li>
-                <a href="/users/new/">Sign Up</a>
-              </li>
-              <li>
-              <a href="/sessions/new/">Sign In</a>
-              </li>
+              <c:choose>
+                <c:when test="${authenticated == true}">
+                  <li>
+                    <a href="/logout/">Log out</a>
+                  </li>
+                </c:when>
+                <c:otherwise>
+                  <li>
+                    <a href="/users/new/">Sign Up</a>
+                  </li>
+                  <li>
+                  <a href="/sessions/new/">Sign In</a>
+                  </li>
+                </c:otherwise>
+              </c:choose>
+
           </ul>
         </div>
       </div>

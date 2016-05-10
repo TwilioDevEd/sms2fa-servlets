@@ -23,11 +23,11 @@ public class Sms2faGuiceModule extends ServletModule {
         Names.bindProperties(binder(), applicationProperties);
 
         serve("/users/").with(UsersServlet.class);
-        serve("/users/new").with(UsersNewServlet.class);
-        serve("/confirmations/new").with(ConfirmationsNewServlet.class);
+        serve("/users/new/").with(UsersNewServlet.class);
+        serve("/confirmations/new/").with(ConfirmationsNewServlet.class);
         serve("/confirmations/").with(ConfirmationsServlet.class);
         serve("/secrets/").with(SecretsServlet.class);
-        serve("/sessions/new").with(SessionsNewServlet.class);
+        serve("/sessions/new/").with(SessionsNewServlet.class);
         serve("/sessions/").with(SessionsServlet.class);
 
         bind(UserRepository.class).to(UserInMemoryRepository.class);

@@ -31,6 +31,6 @@ public class UsersServlet extends HttpServlet {
 
         User user = createUser.create(new User(firstName, lastName, email, phoneNumber, password));
         request.getSession().setAttribute("user", user);
-        response.sendRedirect("/confirmations/new");
+        response.sendRedirect("/confirmations/new/");
     }
 }
