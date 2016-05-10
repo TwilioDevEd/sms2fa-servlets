@@ -30,6 +30,7 @@ public class ConfirmationsServlet extends HttpServlet {
             confirmUser.confirm(user, verificationCode);
             response.sendRedirect("/secrets/");
         } catch (WrongVerificationCodeException e){
+            request.setAttribute("errorMessage", e.getMessage());
             request.getRequestDispatcher("/WEB-INF/pages/confirmations/new.jsp").forward(request, response);
         }
     }

@@ -15,7 +15,7 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="/"> Control <i class="fa fa-globe"></i> Kaos</a>
-          <button class="navbar-toggle">(type="button"){data: { toggle: "collapse", target: "#navbar-main" }}
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -33,6 +33,15 @@
         </div>
       </div>
     </div>
+
+    <c:if test="${errorMessage != null}">
+        <div class="alert.alert-success.alert-dismissible" role="alert"
+          <button class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"> &times;</span>
+          </button>
+        </div>
+    </c:if>
+
     <div class="container">
 
         <h1> <c:out value="${user.phoneNumber}"/> </h1>

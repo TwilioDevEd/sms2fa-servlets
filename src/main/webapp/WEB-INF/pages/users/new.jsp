@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
     <title>SMS 2 Factor Authentication</title>
@@ -14,7 +15,7 @@
       <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" href="/"> Control <i class="fa fa-globe"></i> Kaos</a>
-          <button class="navbar-toggle">(type="button"){data: { toggle: "collapse", target: "#navbar-main" }}
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -32,6 +33,15 @@
         </div>
       </div>
     </div>
+
+    <c:if test="${errorMessage != null}">
+        <div class="alert.alert-success.alert-dismissible" role="alert"
+          <button class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"> &times;</span>
+          </button>
+        </div>
+    </c:if>
+
     <div class="container">
 
         <h1>We're going to be best friends</h1>
