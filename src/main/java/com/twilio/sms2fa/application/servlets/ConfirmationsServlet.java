@@ -31,7 +31,7 @@ public class ConfirmationsServlet extends HttpServlet {
             response.sendRedirect("/secrets/");
         } catch (WrongVerificationCodeException e){
             request.setAttribute("errorMessage", e.getMessage());
-            request.getRequestDispatcher("/WEB-INF/pages/confirmations/new.jsp").forward(request, response);
+            request.getRequestDispatcher(ConfirmationsNewServlet.WEB_INF_PAGES_CONFIRMATIONS_NEW_JSP).forward(request, response);
         }
     }
 
