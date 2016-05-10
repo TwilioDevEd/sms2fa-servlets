@@ -11,9 +11,11 @@ import java.io.IOException;
 @Singleton
 public class SecretsServlet extends HttpServlet {
 
+    public static final String WEB_INF_PAGES_SECRETS_INDEX_JSP = "/WEB-INF/pages/secrets/index.jsp";
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/pages/secrets/index.jsp").forward(request, response);
+        request.getRequestDispatcher(WEB_INF_PAGES_SECRETS_INDEX_JSP).forward(request, response);
     }
 
 }

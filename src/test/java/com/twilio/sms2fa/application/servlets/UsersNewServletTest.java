@@ -15,7 +15,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.powermock.api.mockito.PowerMockito.when;
 
-public class SessionsNewServletTest {
+public class UsersNewServletTest {
 
     @Mock
     private HttpServletRequest request;
@@ -24,20 +24,20 @@ public class SessionsNewServletTest {
     @Mock
     private RequestDispatcher requestDispatcher;
 
-    private SessionsNewServlet sessionsNewServlet;
+    private UsersNewServlet usersNewServlet;
 
     @Before
     public void setUp(){
         initMocks(this);
-        sessionsNewServlet = new SessionsNewServlet();
+        usersNewServlet = new UsersNewServlet();
     }
 
     @Test
-    public void shouldForwardToSessionsNewJsp() throws ServletException, IOException {
-        when(request.getRequestDispatcher(SessionsNewServlet.WEB_INF_PAGES_SESSIONS_NEW_JSP))
+    public void shouldForwardToUsersNewJsp() throws ServletException, IOException {
+        when(request.getRequestDispatcher(UsersNewServlet.WEB_INF_PAGES_USERS_NEW_JSP))
                 .thenReturn(requestDispatcher);
 
-        sessionsNewServlet.doGet(request, response);
+        usersNewServlet.doGet(request, response);
 
         verify(requestDispatcher, times(1)).forward(request, response);
     }
