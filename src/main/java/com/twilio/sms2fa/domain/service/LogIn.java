@@ -1,16 +1,20 @@
 package com.twilio.sms2fa.domain.service;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.twilio.sms2fa.domain.exception.WrongUserPasswordException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.repository.UserRepository;
 
 import java.util.Optional;
 
+@Singleton
 public class LogIn {
 
     private UserRepository userRepository;
     private MessageSender messageSender;
 
+    @Inject
     public LogIn(UserRepository userRepository, MessageSender messageSender) {
         this.userRepository = userRepository;
         this.messageSender = messageSender;
