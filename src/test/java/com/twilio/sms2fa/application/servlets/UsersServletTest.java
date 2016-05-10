@@ -1,6 +1,9 @@
 package com.twilio.sms2fa.application.servlets;
 
 import com.twilio.sms2fa.domain.model.User;
+import com.twilio.sms2fa.domain.repository.UserRepository;
+import com.twilio.sms2fa.domain.service.CreateUser;
+import com.twilio.sms2fa.domain.service.MessageSender;
 import com.twilio.sms2fa.infrastructure.repository.UserInMemoryRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +28,13 @@ public class UsersServletTest {
     @Mock
     private HttpServletRequest request;
 
+    private UserRepository userRepository;
+
+    private CreateUser createUser;
+
+    @Mock
+    private MessageSender messageSender;
+
     @Mock
     private HttpSession session;
 
@@ -33,9 +43,12 @@ public class UsersServletTest {
 
     @Before
     public void setUp(){
-        this.usersServlet = new UsersServlet(new UserInMemoryRepository());
-
         initMocks(this);
+        this.userRepository = new UserInMemoryRepository();
+        this.createUser = new CreateUser(userRepository, messageSender);
+
+        this.usersServlet = new UsersServlet(createUser);
+
         when(request.getSession()).thenReturn(session);
         when(request.getAttribute("first_name")).thenReturn("Foo");
         when(request.getAttribute("last_name")).thenReturn("Bar");

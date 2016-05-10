@@ -3,7 +3,7 @@ package com.twilio.sms2fa.application.servlets;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.twilio.sms2fa.domain.model.User;
-import com.twilio.sms2fa.domain.repository.UserRepository;
+import com.twilio.sms2fa.domain.service.CreateUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,11 +14,11 @@ import java.io.IOException;
 @Singleton
 public class UsersServlet extends HttpServlet {
 
-    private UserRepository userRepository;
+    private CreateUser createUser;
 
     @Inject
-    public UsersServlet(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public UsersServlet(CreateUser createUser) {
+        this.createUser = createUser;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class UsersServlet extends HttpServlet {
         String phoneNumber = request.getParameter("phone_number");
         String password = request.getParameter("password");
 
-        User user = userRepository.save(new User(firstName, lastName, email, phoneNumber, password));
+        User user = createUser.create(new User(firstName, lastName, email, phoneNumber, password));
         request.getSession().setAttribute("user", user);
         response.sendRedirect("/confirmations/new");
     }
