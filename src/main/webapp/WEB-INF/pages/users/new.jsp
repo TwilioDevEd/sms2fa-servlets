@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/paper/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/application.css">
+    <link rel="stylesheet" type="text/css" href="/css/application.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/1.3.0/turbolinks.min.js"></script>
   </head>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="container">
-    
+
         <h1>We're going to be best friends</h1>
         <p>Thanks for your interest in signing up! Can you tell us a bit about yourself?</p>
         <form action="/users/" method="POST">

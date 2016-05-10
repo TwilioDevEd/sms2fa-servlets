@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
+import com.twilio.sms2fa.application.servlets.ConfirmationsNewServlet;
 import com.twilio.sms2fa.application.servlets.UsersNewServlet;
 import com.twilio.sms2fa.application.servlets.UsersServlet;
 import com.twilio.sms2fa.domain.repository.UserRepository;
@@ -18,6 +19,7 @@ public class Sms2faGuiceServletConfig extends GuiceServletContextListener {
             public void configureServlets() {
                 serve("/users/").with(UsersServlet.class);
                 serve("/users/new").with(UsersNewServlet.class);
+                serve("/confirmations/new").with(ConfirmationsNewServlet.class);
 
                 bind(UserRepository.class).to(UserInMemoryRepository.class);
             }

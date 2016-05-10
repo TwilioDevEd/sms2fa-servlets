@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
   <head>
     <title>SMS 2 Factor Authentication</title>
@@ -33,11 +34,27 @@
       </div>
     </div>
     <div class="container">
-      <h1>Two Factor Authentication with Twilio</h1>
 
-      <p>Doing two-factor authentication (2FA) at a level of excellence can be tricky. Let's demonstrate how to use the <a href="https://www.twilio.com/">Twilio</a> API to make implementing 2FA a snap.</p>
+        <h1> <c:out value="${user.phoneNumber}"/> </h1>
 
-      <p><a href="/users/new">Sign Up</a> or <a href="/sessions/new">Sign In</a> to get started.</p>
+        <p> We have sent you a SMS with a code to the number above. </p>
+
+        <p> To complete your phone number verification, please enter the 6-digits activation code. </p>
+
+        <form action="/confirmations" method="POST" class="form-horizontal">
+            <div class="form-group">
+                <label for="verification_code" class="col-md-2 control-label">Verification Code</label>
+                <div class="col-sm-10">
+                    <input type="text" name="verification_code" class="form-control"/>
+                    <input type="hidden" name="user_id"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" class="btn btn-success" value="Confirm"/>
+                </div>
+            </div>
+        </form>
 
     </div>
     <footer class="container">
