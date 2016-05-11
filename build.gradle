@@ -15,6 +15,10 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'com.twilio.sdk:twilio-java-sdk:5.2.1'
     compile 'com.google.inject.extensions:guice-servlet:4.0'
+    compile 'com.google.inject.extensions:guice-persist:4.0'
+    compile 'org.eclipse.persistence:javax.persistence:2.1.1'
+    compile 'org.eclipse.persistence:org.eclipse.persistence.jpa:2.6.3'
+    compile 'org.xerial:sqlite-jdbc:3.8.11.2'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-core:1.3'

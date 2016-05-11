@@ -7,4 +7,5 @@ target/
 *.iml
 *.ipr
 *.iws
+*.sqlite
 src/main/resources/application.properties

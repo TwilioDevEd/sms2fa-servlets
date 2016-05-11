@@ -2,10 +2,16 @@ package com.twilio.sms2fa.domain.model;
 
 import com.twilio.sms2fa.domain.exception.WrongVerificationCodeException;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Random;
 
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private String firstName;
     private String lastName;
@@ -14,6 +20,9 @@ public class User {
     private String verificationCode;
     private String phoneNumber;
     private boolean confirmed;
+
+    // required by orm
+    public User(){}
 
     public User(String firstName, String lastName, String email, String phoneNumber, String password){
         this.firstName = firstName;

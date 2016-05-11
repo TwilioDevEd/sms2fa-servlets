@@ -2,6 +2,7 @@ package com.twilio.sms2fa.infrastructure.guice;
 
 import com.google.inject.Provides;
 import com.google.inject.name.Names;
+import com.google.inject.persist.PersistFilter;
 import com.google.inject.servlet.ServletModule;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.factory.MessageFactory;
@@ -24,6 +25,7 @@ public class Sms2faGuiceModule extends ServletModule {
     public void configureServlets() {
         Names.bindProperties(binder(), applicationProperties);
 
+        filter("/*").through(PersistFilter.class);
         filter(ExternalResource.SECRETS.getPath()).through(AuthenticationFilter.class);
 
         serve(ExternalResource.USERS.getPath()).with(UsersServlet.class);
