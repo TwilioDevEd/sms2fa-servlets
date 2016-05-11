@@ -6,6 +6,7 @@ import com.google.inject.servlet.ServletModule;
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Account;
+import com.twilio.sms2fa.application.filters.AuthenticationFilter;
 import com.twilio.sms2fa.application.servlets.*;
 import com.twilio.sms2fa.domain.repository.UserRepository;
 import com.twilio.sms2fa.domain.service.ConfirmUser;
@@ -30,6 +31,8 @@ public class Sms2faGuiceModule extends ServletModule {
         serve("/sessions/new/").with(SessionsNewServlet.class);
         serve("/sessions/").with(SessionsServlet.class);
         serve("/logout/").with(LogoutServlet.class);
+
+        filter("/secrets/").through(AuthenticationFilter.class);
 
         bind(UserRepository.class).to(UserInMemoryRepository.class);
         bind(MessageSender.class).to(TwilioMessageSender.class);
