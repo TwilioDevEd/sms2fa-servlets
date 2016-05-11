@@ -49,8 +49,8 @@
           <button class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true"> &times;</span>
           </button>
+          <c:out value="${noticeMessage}"/>
         </div>
-        <c:out value="${noticeMessage}"/>
     </c:if>
     <c:if test="${errorMessage != null}">
         <div class="alert alert-danger alert-dismissible" role="alert"
