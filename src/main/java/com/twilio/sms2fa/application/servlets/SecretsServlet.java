@@ -1,6 +1,7 @@
 package com.twilio.sms2fa.application.servlets;
 
 import com.google.inject.Singleton;
+import com.twilio.sms2fa.application.constants.InternalResource;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +12,9 @@ import java.io.IOException;
 @Singleton
 public class SecretsServlet extends HttpServlet {
 
-    public static final String WEB_INF_PAGES_SECRETS_INDEX_JSP = "/WEB-INF/pages/secrets/index.jsp";
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher(WEB_INF_PAGES_SECRETS_INDEX_JSP).forward(request, response);
+        request.getRequestDispatcher(InternalResource.SECRETS_INDEX_JSP.getPath()).forward(request, response);
     }
 
 }

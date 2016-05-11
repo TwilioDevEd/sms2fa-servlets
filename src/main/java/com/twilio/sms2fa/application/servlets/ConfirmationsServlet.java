@@ -2,6 +2,8 @@ package com.twilio.sms2fa.application.servlets;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.twilio.sms2fa.application.constants.InternalResource;
+import com.twilio.sms2fa.application.constants.ExternalResource;
 import com.twilio.sms2fa.domain.exception.WrongVerificationCodeException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.service.ConfirmUser;
@@ -29,10 +31,10 @@ public class ConfirmationsServlet extends HttpServlet {
             User user = (User) request.getSession().getAttribute("user");
             confirmUser.confirm(user, verificationCode);
             request.getSession().setAttribute("authenticated", true);
-            response.sendRedirect("/secrets/");
+            response.sendRedirect(ExternalResource.SECRETS.getPath());
         } catch (WrongVerificationCodeException e){
             request.setAttribute("errorMessage", e.getMessage());
-            request.getRequestDispatcher(ConfirmationsNewServlet.WEB_INF_PAGES_CONFIRMATIONS_NEW_JSP).forward(request, response);
+            request.getRequestDispatcher(InternalResource.CONFIRMATIONS_NEW_JSP.getPath()).forward(request, response);
         }
     }
 

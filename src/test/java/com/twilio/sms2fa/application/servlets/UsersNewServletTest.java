@@ -1,5 +1,6 @@
 package com.twilio.sms2fa.application.servlets;
 
+import com.twilio.sms2fa.application.constants.InternalResource;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -34,7 +35,7 @@ public class UsersNewServletTest {
 
     @Test
     public void shouldForwardToUsersNewJsp() throws ServletException, IOException {
-        when(request.getRequestDispatcher(UsersNewServlet.WEB_INF_PAGES_USERS_NEW_JSP))
+        when(request.getRequestDispatcher(InternalResource.USERS_NEW_JSP.getPath()))
                 .thenReturn(requestDispatcher);
 
         usersNewServlet.doGet(request, response);

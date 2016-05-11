@@ -1,5 +1,6 @@
 package com.twilio.sms2fa.application.servlets;
 
+import com.twilio.sms2fa.application.constants.InternalResource;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -34,7 +35,7 @@ public class SecretsServletTest {
 
     @Test
     public void shouldForwardToSessionsNewJsp() throws ServletException, IOException {
-        when(request.getRequestDispatcher(SecretsServlet.WEB_INF_PAGES_SECRETS_INDEX_JSP))
+        when(request.getRequestDispatcher(InternalResource.SECRETS_INDEX_JSP.getPath()))
                 .thenReturn(requestDispatcher);
 
         secretsServlet.doGet(request, response);

@@ -1,5 +1,6 @@
 package com.twilio.sms2fa.application.servlets;
 
+import com.twilio.sms2fa.application.constants.InternalResource;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -34,7 +35,7 @@ public class ConfirmationsNewServletTest {
 
     @Test
     public void shouldForwardToSessionsNewJsp() throws ServletException, IOException {
-        when(request.getRequestDispatcher(ConfirmationsNewServlet.WEB_INF_PAGES_CONFIRMATIONS_NEW_JSP))
+        when(request.getRequestDispatcher(InternalResource.CONFIRMATIONS_NEW_JSP.getPath()))
                 .thenReturn(requestDispatcher);
 
         servlet.doGet(request, response);

@@ -1,5 +1,6 @@
 package com.twilio.sms2fa.application.servlets;
 
+import com.twilio.sms2fa.application.constants.InternalResource;
 import com.twilio.sms2fa.domain.exception.WrongVerificationCodeException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.model.UserBuilder;
@@ -49,7 +50,7 @@ public class ConfirmationsServletTest {
 
     @Test
     public void shouldForwardToConfirmationsNewJspWhenItThrowsWrongVerificationCodeException() throws ServletException, IOException {
-        when(request.getRequestDispatcher(ConfirmationsNewServlet.WEB_INF_PAGES_CONFIRMATIONS_NEW_JSP))
+        when(request.getRequestDispatcher(InternalResource.CONFIRMATIONS_NEW_JSP.getPath()))
                 .thenReturn(requestDispatcher);
         when(request.getParameter("verification_code")).thenReturn("123");
         WrongVerificationCodeException ex = new WrongVerificationCodeException(userInSession.getVerificationCode());
