@@ -1,10 +1,13 @@
 package com.twilio.sms2fa.application.filters;
 
+import com.google.inject.Singleton;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Singleton
 public class AuthenticationFilter implements Filter {
 
     @Override
