@@ -9,7 +9,7 @@ public class Sms2faGuiceServletConfig extends GuiceServletContextListener {
 
     @Override
     protected Injector getInjector() {
-        return Guice.createInjector(new JpaPersistModule("jpaUnit"), new Sms2faGuiceModule());
+        return Guice.createInjector(new JpaPersistModule("jpa-sms2fa"), new Sms2faGuiceModule());
     }
 
 }

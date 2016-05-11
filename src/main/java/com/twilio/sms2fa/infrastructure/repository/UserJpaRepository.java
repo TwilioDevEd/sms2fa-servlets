@@ -20,7 +20,7 @@ public class UserJpaRepository implements UserRepository {
 
     @Override
     public User save(User user) {
-        entityManager.merge(user);
+        user = entityManager.merge(user);
         return user;
     }
 
