@@ -29,6 +29,7 @@ public class Sms2faGuiceModule extends ServletModule {
         serve("/secrets/").with(SecretsServlet.class);
         serve("/sessions/new/").with(SessionsNewServlet.class);
         serve("/sessions/").with(SessionsServlet.class);
+        serve("/logout/").with(LogoutServlet.class);
 
         bind(UserRepository.class).to(UserInMemoryRepository.class);
         bind(MessageSender.class).to(TwilioMessageSender.class);
