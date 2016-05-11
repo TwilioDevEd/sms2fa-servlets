@@ -43,6 +43,7 @@ public class AuthenticationFilterTest {
     public void shouldRedirectIfItIsNotAuthenticated() throws IOException, ServletException {
         filter.doFilter(request, response, filterChain);
 
+        verify(filterChain, times(0)).doFilter(request, response);
         verify(response, times(1)).sendRedirect("/sessions/new/");
     }
 

@@ -24,6 +24,8 @@ public class Sms2faGuiceModule extends ServletModule {
     public void configureServlets() {
         Names.bindProperties(binder(), applicationProperties);
 
+        filter(ExternalResource.SECRETS.getPath()).through(AuthenticationFilter.class);
+
         serve(ExternalResource.USERS.getPath()).with(UsersServlet.class);
         serve(ExternalResource.USERS_NEW.getPath()).with(UsersNewServlet.class);
         serve(ExternalResource.CONFIRMATIONS_NEW.getPath()).with(ConfirmationsNewServlet.class);
@@ -32,8 +34,6 @@ public class Sms2faGuiceModule extends ServletModule {
         serve(ExternalResource.SESSIONS_NEW.getPath()).with(SessionsNewServlet.class);
         serve(ExternalResource.SESSIONS.getPath()).with(SessionsServlet.class);
         serve(ExternalResource.LOGOUT.getPath()).with(LogoutServlet.class);
-
-        filter(ExternalResource.SECRETS.getPath()).through(AuthenticationFilter.class);
 
         bind(UserRepository.class).to(UserInMemoryRepository.class);
         bind(MessageSender.class).to(TwilioMessageSender.class);
