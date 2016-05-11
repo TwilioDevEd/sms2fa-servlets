@@ -44,12 +44,21 @@
       </div>
     </div>
 
-    <c:if test="${errorMessage != null}">
-        <div class="alert.alert-success.alert-dismissible" role="alert"
+    <c:if test="${noticeMessage != null}">
+        <div class="alert alert-success alert-dismissible" role="alert"
           <button class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true"> &times;</span>
           </button>
         </div>
+        <c:out value="${noticeMessage}"/>
+    </c:if>
+    <c:if test="${errorMessage != null}">
+        <div class="alert alert-danger alert-dismissible" role="alert"
+          <button class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"> &times;</span>
+          </button>
+        </div>
+        <c:out value="${errorMessage}"/>
     </c:if>
 
     <div class="container">
