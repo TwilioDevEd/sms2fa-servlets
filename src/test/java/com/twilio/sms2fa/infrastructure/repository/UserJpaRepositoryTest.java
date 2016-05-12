@@ -6,6 +6,7 @@ import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.model.UserBuilder;
+import com.twilio.sms2fa.helper.IntegrationTestHelper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +17,7 @@ import static org.junit.Assert.assertThat;
 public class UserJpaRepositoryTest {
 
     private UserJpaRepository userJpaRepository;
+    private IntegrationTestHelper integrationTestHelper;
 
     @Before
     public void setUp() throws ClassNotFoundException {
@@ -27,6 +29,8 @@ public class UserJpaRepositoryTest {
         PersistService instance = injector.getInstance(PersistService.class);
         instance.start();
         userJpaRepository = injector.getInstance(UserJpaRepository.class);
+        integrationTestHelper = injector.getInstance(IntegrationTestHelper.class);
+        integrationTestHelper.cleanTable(User.class);
     }
 
     @Test
