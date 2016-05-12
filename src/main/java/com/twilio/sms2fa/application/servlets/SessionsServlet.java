@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import com.twilio.sms2fa.application.constants.ExternalResource;
 import com.twilio.sms2fa.application.constants.InternalResource;
 import com.twilio.sms2fa.domain.exception.WrongUserPasswordException;
+import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.service.LogIn;
 
 import javax.servlet.ServletException;
@@ -28,7 +29,8 @@ public class SessionsServlet extends HttpServlet {
         try {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            logIn.authenticate(email, password);
+            User user = logIn.authenticate(email, password);
+            request.getSession().setAttribute("user", user);
             response.sendRedirect(ExternalResource.CONFIRMATIONS_NEW.getPath());
         } catch (WrongUserPasswordException e){
             request.setAttribute("errorMessage", e.getMessage());

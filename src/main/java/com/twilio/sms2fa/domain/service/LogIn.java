@@ -20,7 +20,7 @@ public class LogIn {
         this.messageSender = messageSender;
     }
 
-    public void authenticate(String email, String password) {
+    public User authenticate(String email, String password) {
         Optional<User> user = userRepository.findByEmail(email);
         user.ifPresent(user1 -> {
             if (user1.authenticate(password)) {
@@ -32,5 +32,6 @@ public class LogIn {
             }
         });
         user.orElseThrow(WrongUserPasswordException::new);
+        return user.get();
     }
 }
