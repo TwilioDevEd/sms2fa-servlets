@@ -2,6 +2,7 @@ package com.twilio.sms2fa.domain.service;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.google.inject.persist.Transactional;
 import com.twilio.sms2fa.domain.exception.WrongUserPasswordException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.repository.UserRepository;
@@ -22,6 +23,7 @@ public class LogIn {
         this.messageSender = messageSender;
     }
 
+    @Transactional
     public User authenticate(final String email, final String password) {
         Optional<User> user = userRepository.findByEmail(email);
         user.ifPresent(user1 -> {

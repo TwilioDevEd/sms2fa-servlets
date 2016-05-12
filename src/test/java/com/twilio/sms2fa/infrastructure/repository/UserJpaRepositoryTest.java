@@ -7,6 +7,7 @@ import com.google.inject.persist.jpa.JpaPersistModule;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.model.UserBuilder;
 import com.twilio.sms2fa.helper.IntegrationTestHelper;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,6 +31,12 @@ public class UserJpaRepositoryTest {
         integrationTestHelper = injector
                 .getInstance(IntegrationTestHelper.class);
         integrationTestHelper.cleanTable(User.class);
+        integrationTestHelper.startTransaction();
+    }
+
+    @After
+    public void after() {
+        integrationTestHelper.finishTransaction();
     }
 
     @Test
@@ -56,6 +63,7 @@ public class UserJpaRepositoryTest {
     @Test
     public void shouldFindUserById() {
         User user = new UserBuilder().build();
+
         user = userJpaRepository.save(user);
 
         User userFound = userJpaRepository.findById(user.getId());

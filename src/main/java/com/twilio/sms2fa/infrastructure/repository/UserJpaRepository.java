@@ -20,10 +20,7 @@ public class UserJpaRepository implements UserRepository {
 
     @Override
     public User save(final User user) {
-        entityManager.getTransaction().begin();
-        User mergedUser = entityManager.merge(user);
-        entityManager.getTransaction().commit();
-        return mergedUser;
+        return entityManager.merge(user);
     }
 
     @Override

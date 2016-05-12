@@ -8,7 +8,8 @@ import javax.validation.ConstraintViolationException;
 import java.util.LinkedHashSet;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertTrue;
 
 public class ValidationUtilTest {
 
@@ -27,7 +28,9 @@ public class ValidationUtilTest {
 
         String message = ValidationUtil.extractMessage(exception);
 
-        assertThat(message, is("<ul><li>" + lastNameMessage + "</li><li>"
-                + firstNameMessage + "</li></ul>"));
+        assertThat(message, containsString(firstNameMessage));
+        assertThat(message, containsString(lastNameMessage));
+
+        assertTrue(message.matches("<ul><li>.+</li><li>.+</li></ul>"));
     }
 }
