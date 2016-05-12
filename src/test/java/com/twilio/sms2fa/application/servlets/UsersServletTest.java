@@ -16,12 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.Path;
-import javax.validation.metadata.ConstraintDescriptor;
 import java.io.IOException;
 import java.util.HashSet;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -80,7 +79,7 @@ public class UsersServletTest {
         CreateUser mock = mock(CreateUser.class);
         when(mock.create(any(User.class))).thenThrow(new ConstraintViolationException(
                 new HashSet<ConstraintViolation<?>>(){{
-                    add(stubbedConstraintViolation());
+                    add(new StubbedConstraintViolation("First Name may not be blank"));
                 }}
         ));
         UsersServlet usersServlet = new UsersServlet(mock);
@@ -92,62 +91,4 @@ public class UsersServletTest {
         verify(request).setAttribute(eq("errorMessage"), any(String.class));
     }
 
-    private ConstraintViolation<User> stubbedConstraintViolation() {
-        return new ConstraintViolation<User>() {
-            @Override
-            public String getMessage() {
-                return "First Name may not be empty";
-            }
-
-            @Override
-            public String getMessageTemplate() {
-                return null;
-            }
-
-            @Override
-            public User getRootBean() {
-                return null;
-            }
-
-            @Override
-            public Class<User> getRootBeanClass() {
-                return null;
-            }
-
-            @Override
-            public Object getLeafBean() {
-                return null;
-            }
-
-            @Override
-            public Object[] getExecutableParameters() {
-                return new Object[0];
-            }
-
-            @Override
-            public Object getExecutableReturnValue() {
-                return null;
-            }
-
-            @Override
-            public Path getPropertyPath() {
-                return null;
-            }
-
-            @Override
-            public Object getInvalidValue() {
-                return null;
-            }
-
-            @Override
-            public ConstraintDescriptor<?> getConstraintDescriptor() {
-                return null;
-            }
-
-            @Override
-            public <U> U unwrap(Class<U> type) {
-                return null;
-            }
-        };
-    }
 }
