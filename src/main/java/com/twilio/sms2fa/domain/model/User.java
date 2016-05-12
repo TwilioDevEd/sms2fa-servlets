@@ -14,8 +14,8 @@ import java.util.Random;
 @Entity
 public class User {
 
-    public static final int MAX_VERIFICATION_CODE = 100000;
-    public static final int MIN_VERIFICATION_CODE = 999999;
+    private static final int MAX_VERIFICATION_CODE = 100000;
+    private static final int MIN_VERIFICATION_CODE = 999999;
 
     @Id
     @GeneratedValue
@@ -64,7 +64,7 @@ public class User {
         this.verificationCode = generateVerificationCode();
     }
 
-    public static String generateVerificationCode() {
+    static String generateVerificationCode() {
         Random rand = new Random();
         Integer code = rand.nextInt(MIN_VERIFICATION_CODE
                 - MAX_VERIFICATION_CODE + 1) + MAX_VERIFICATION_CODE;
@@ -76,6 +76,14 @@ public class User {
             throw new WrongVerificationCodeException(verificationCode);
         }
         confirmed = true;
+    }
+
+    public void generateNewVerificationCode() {
+        this.verificationCode = generateVerificationCode();
+    }
+
+    public boolean authenticate(final String password) {
+        return BCrypt.checkpw(password, this.password);
     }
 
     public Long getId() {
@@ -98,11 +106,4 @@ public class User {
         return confirmed;
     }
 
-    public void generateNewVerificationCode() {
-        this.verificationCode = generateVerificationCode();
-    }
-
-    public boolean authenticate(final String password) {
-        return BCrypt.checkpw(password, this.password);
-    }
 }
