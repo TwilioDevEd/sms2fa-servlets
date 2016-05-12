@@ -7,10 +7,10 @@ import com.google.inject.persist.jpa.JpaPersistModule;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.model.UserBuilder;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
 public class UserJpaRepositoryTest {
@@ -30,11 +30,24 @@ public class UserJpaRepositoryTest {
     }
 
     @Test
-    public void shouldSaveUser() {
+    public void shouldCreateNewUser() {
         User user = new UserBuilder().build();
         user = userJpaRepository.save(user);
 
         assertThat(user.getId(), is(1L));
+    }
+
+    @Test
+    public void shouldUpdateExistentUser() {
+        User user = userJpaRepository.save(new UserBuilder().build());
+        String oldCode = user.getVerificationCode();
+
+        user.generateNewVerificationCode();
+        userJpaRepository.save(user);
+
+        User userFound = userJpaRepository.findById(user.getId());
+        String newCode = userFound.getVerificationCode();
+        assertThat(oldCode, is(not(newCode)));
     }
 
     @Test
@@ -47,15 +60,14 @@ public class UserJpaRepositoryTest {
         assertThat(userFound, is(user));
     }
 
-    @Ignore("to be fixed asap")
     @Test
     public void shouldFindUserByEmail() {
-        User user = new UserBuilder().withEmail("foo@bar.com").build();
+        User user = new UserBuilder().withEmail("foo2@bar.com").build();
         user = userJpaRepository.save(user);
 
-        User userFound = userJpaRepository.findByEmail("foo@bar.com").get();
+        User userFound = userJpaRepository.findByEmail("foo2@bar.com").get();
 
-        assertThat(userFound, is(user));
+        assertThat(userFound.getId(), is(user.getId()));
     }
 
 

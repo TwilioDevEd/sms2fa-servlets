@@ -2,9 +2,7 @@ package com.twilio.sms2fa.domain.model;
 
 import com.twilio.sms2fa.domain.exception.WrongVerificationCodeException;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Random;
 
 @Entity

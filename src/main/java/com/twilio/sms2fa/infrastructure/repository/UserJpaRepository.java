@@ -20,8 +20,10 @@ public class UserJpaRepository implements UserRepository {
 
     @Override
     public User save(User user) {
-        user = entityManager.merge(user);
-        return user;
+        entityManager.getTransaction().begin();
+        User mergedUser = entityManager.merge(user);
+        entityManager.getTransaction().commit();
+        return mergedUser;
     }
 
     @Override
@@ -31,9 +33,9 @@ public class UserJpaRepository implements UserRepository {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        return entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email")
+        return entityManager
+                .createQuery("SELECT u FROM User u WHERE u.email = :email")
                 .setParameter("email", email)
-                .setMaxResults(1)
                 .getResultList()
                 .stream()
                 .findFirst();
