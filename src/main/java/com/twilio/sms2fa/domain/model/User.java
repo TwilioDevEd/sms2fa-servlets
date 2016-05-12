@@ -1,8 +1,11 @@
 package com.twilio.sms2fa.domain.model;
 
 import com.twilio.sms2fa.domain.exception.WrongVerificationCodeException;
+import org.mindrot.jbcrypt.BCrypt;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Random;
 
 @Entity
@@ -27,9 +30,9 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.verificationCode = generateVerificationCode();
         this.confirmed = false;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt(12));
+        this.verificationCode = generateVerificationCode();
     }
 
     public static String generateVerificationCode(){
@@ -67,10 +70,6 @@ public class User {
         return email;
     }
 
-    public String getPassword(){
-        return password;
-    }
-
     public boolean isConfirmed() {
         return confirmed;
     }
@@ -80,6 +79,6 @@ public class User {
     }
 
     public boolean authenticate(String password) {
-        return this.password.equals(password);
+        return BCrypt.checkpw(password, this.password);
     }
 }

@@ -44,17 +44,18 @@ public class UsersServletTest {
     @Before
     public void setUp(){
         initMocks(this);
+        when(request.getSession()).thenReturn(session);
+        when(request.getParameter("first_name")).thenReturn("Foo");
+        when(request.getParameter("last_name")).thenReturn("Bar");
+        when(request.getParameter("email")).thenReturn("foo@bar.com");
+        when(request.getParameter("phone_number")).thenReturn("+111321321321321312");
+        when(request.getParameter("password")).thenReturn("foo@123");
+
         this.userRepository = new UserInMemoryRepository();
         this.createUser = new CreateUser(userRepository, messageSender);
 
         this.usersServlet = new UsersServlet(createUser);
 
-        when(request.getSession()).thenReturn(session);
-        when(request.getAttribute("first_name")).thenReturn("Foo");
-        when(request.getAttribute("last_name")).thenReturn("Bar");
-        when(request.getAttribute("email")).thenReturn("foo@bar.com");
-        when(request.getAttribute("phone_number")).thenReturn("+111321321321321312");
-        when(request.getAttribute("password")).thenReturn("foo@123");
     }
 
     @Test
