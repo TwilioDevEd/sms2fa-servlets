@@ -22,12 +22,14 @@ public class UsersServlet extends HttpServlet {
     private CreateUser createUser;
 
     @Inject
-    public UsersServlet(CreateUser createUser) {
+    public UsersServlet(final CreateUser createUser) {
         this.createUser = createUser;
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(final HttpServletRequest request,
+                          final HttpServletResponse response) throws
+            ServletException, IOException {
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");
         String email = request.getParameter("email");

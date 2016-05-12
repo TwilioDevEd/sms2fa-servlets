@@ -48,7 +48,7 @@ public class UsersServletTest {
     private HttpServletResponse response;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
         when(request.getSession()).thenReturn(session);
         when(request.getRequestDispatcher(any(String.class))).thenReturn(requestDispatcher);
@@ -78,9 +78,9 @@ public class UsersServletTest {
     public void shouldHandleValidationErrors() throws ServletException, IOException {
         CreateUser mock = mock(CreateUser.class);
         when(mock.create(any(User.class))).thenThrow(new ConstraintViolationException(
-                new HashSet<ConstraintViolation<?>>(){{
+                new HashSet<ConstraintViolation<?>>() { {
                     add(new StubbedConstraintViolation("First Name may not be blank"));
-                }}
+                } }
         ));
         UsersServlet usersServlet = new UsersServlet(mock);
 

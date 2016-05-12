@@ -2,7 +2,7 @@ package com.twilio.sms2fa.domain.exception;
 
 public class WrongUserPasswordException extends RuntimeException {
 
-    public WrongUserPasswordException(){
+    public WrongUserPasswordException() {
         super("Wrong user/password.");
     }
 

@@ -24,7 +24,7 @@ public class CreateUserTest {
     private MessageSender messageSender;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
 
         this.userRepository = new UserInMemoryRepository();
@@ -34,14 +34,14 @@ public class CreateUserTest {
     }
 
     @Test
-    public void shouldSendMessage(){
+    public void shouldSendMessage() {
         createUser.create(user);
 
         verify(messageSender, only()).sendCode(user);
     }
 
     @Test
-    public void shouldSaveUser(){
+    public void shouldSaveUser() {
         createUser.create(user);
 
         assertThat(userRepository.findById(1), is(user));

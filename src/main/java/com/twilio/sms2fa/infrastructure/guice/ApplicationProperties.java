@@ -7,7 +7,7 @@ public class ApplicationProperties extends Properties {
 
     private static final String APPLICATION_PROPERTIES = "/application.properties";
 
-    public ApplicationProperties(){
+    ApplicationProperties() {
         try {
             load(ApplicationProperties.class.getClassLoader().getResourceAsStream(APPLICATION_PROPERTIES));
         } catch (IOException e) {

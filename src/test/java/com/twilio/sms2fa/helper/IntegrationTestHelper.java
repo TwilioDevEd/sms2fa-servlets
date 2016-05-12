@@ -9,7 +9,7 @@ public class IntegrationTestHelper {
     private EntityManager entityManager;
 
     @Inject
-    public IntegrationTestHelper(EntityManager entityManager) {
+    public IntegrationTestHelper(final EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -21,7 +21,7 @@ public class IntegrationTestHelper {
         this.entityManager.getTransaction().begin();
     }
 
-    public <T> void cleanTable(Class<T> clazz) {
+    public <T> void cleanTable(final Class<T> clazz) {
         this.entityManager.getTransaction().begin();
         String deleteStatement = String.format("delete from %s", clazz.getSimpleName());
         this.entityManager.createQuery(deleteStatement).executeUpdate();

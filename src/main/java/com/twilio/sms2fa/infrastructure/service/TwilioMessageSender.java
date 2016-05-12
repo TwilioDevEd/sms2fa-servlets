@@ -27,18 +27,20 @@ public class TwilioMessageSender implements MessageSender {
     private String fromPhoneNumber;
 
     @Inject
-    public TwilioMessageSender(MessageFactory messageFactory, @Named("twilio.phone.number") String fromPhoneNumber) {
+    public TwilioMessageSender(
+            final MessageFactory messageFactory,
+            @Named("twilio.phone.number") final String fromPhoneNumber) {
         this.messageFactory = messageFactory;
         this.fromPhoneNumber = fromPhoneNumber;
     }
 
     @Override
-    public boolean sendCode(User user) {
+    public final boolean sendCode(final User user) {
         try {
             List<NameValuePair> params = asList(
-                new BasicNameValuePair(FROM, fromPhoneNumber),
-                new BasicNameValuePair(TO, user.getPhoneNumber()),
-                new BasicNameValuePair(BODY, user.getVerificationCode())
+                    new BasicNameValuePair(FROM, fromPhoneNumber),
+                    new BasicNameValuePair(TO, user.getPhoneNumber()),
+                    new BasicNameValuePair(BODY, user.getVerificationCode())
             );
             Message sms = messageFactory.create(params);
             return QUEUED.equals(sms.getStatus());

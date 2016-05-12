@@ -14,78 +14,82 @@ import java.util.Random;
 @Entity
 public class User {
 
+    public static final int MAX_VERIFICATION_CODE = 100000;
+    public static final int MIN_VERIFICATION_CODE = 999999;
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(name="FIRST_NAME")
+    @Column(name = "FIRST_NAME")
     @NotBlank(message = "First Name may not be blank")
     private String firstName;
 
-    @Column(name="LAST_NAME")
+    @Column(name = "LAST_NAME")
     @NotBlank(message = "Last Name may not be blank")
     private String lastName;
 
-    @Column(name="EMAIL", unique = true)
+    @Column(name = "EMAIL", unique = true)
     @NotBlank(message = "Email may not be blank")
     @Email(message = "Email format does not match")
     private String email;
 
     @NotBlank(message = "Password may not be blank")
-    @Column(name="PASSWORD")
+    @Column(name = "PASSWORD")
     private String password;
 
     @NotBlank(message = "Phone Number may not be blank")
-    @Column(name="PHONE_NUMBER")
+    @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
-    @Column(name="VERIFICATION_CODE")
+    @Column(name = "VERIFICATION_CODE")
     private String verificationCode;
 
-    @Column(name="CONFIRMED")
+    @Column(name = "CONFIRMED")
     private boolean confirmed;
 
     // required by orm
-    public User(){}
+    public User() {
+    }
 
-    public User(String firstName, String lastName, String email, String phoneNumber, String password){
+    public User(final String firstName, final String lastName,
+                final String email, final String phoneNumber,
+                final String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.confirmed = false;
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt(12));
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
         this.verificationCode = generateVerificationCode();
     }
 
-    public static String generateVerificationCode(){
-        int min = 100000;
-        int max = 999999;
+    public static String generateVerificationCode() {
         Random rand = new Random();
-        Integer code = rand.nextInt(max - min + 1) + min;
+        Integer code = rand.nextInt(MIN_VERIFICATION_CODE
+                - MAX_VERIFICATION_CODE + 1) + MAX_VERIFICATION_CODE;
         return code.toString();
     }
 
-    public void confirm(String verificationCode) {
-        if (!this.verificationCode.equals(verificationCode)){
+    public void confirm(final String verificationCode) {
+        if (!this.verificationCode.equals(verificationCode)) {
             throw new WrongVerificationCodeException(verificationCode);
         }
         confirmed = true;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 
-    public String getVerificationCode(){
+    public String getVerificationCode() {
         return verificationCode;
     }
 
-    public String getPhoneNumber(){
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
@@ -97,7 +101,7 @@ public class User {
         this.verificationCode = generateVerificationCode();
     }
 
-    public boolean authenticate(String password) {
+    public boolean authenticate(final String password) {
         return BCrypt.checkpw(password, this.password);
     }
 }

@@ -37,7 +37,7 @@ public class SessionsServletTest {
     private SessionsServlet servlet;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
         when(request.getSession()).thenReturn(session);
         servlet = new SessionsServlet(logIn);

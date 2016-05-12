@@ -8,7 +8,7 @@ public class StubbedConstraintViolation<T> implements ConstraintViolation<T> {
 
     private String message;
 
-    public StubbedConstraintViolation(String message){
+    public StubbedConstraintViolation(final String message) {
         this.message = message;
     }
 
@@ -63,7 +63,7 @@ public class StubbedConstraintViolation<T> implements ConstraintViolation<T> {
     }
 
     @Override
-    public <U> U unwrap(Class<U> type) {
+    public <U> U unwrap(final Class<U> type) {
         return null;
     }
 }

@@ -13,8 +13,11 @@ import java.io.IOException;
 public class UsersNewServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher(InternalResource.USERS_NEW_JSP.getPath()).forward(request, response);
+    protected void doGet(final HttpServletRequest request,
+                         final HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher(InternalResource.USERS_NEW_JSP.getPath())
+                .forward(request, response);
     }
 
 }

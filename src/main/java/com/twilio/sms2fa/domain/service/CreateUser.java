@@ -14,12 +14,14 @@ public class CreateUser {
     private MessageSender messageSender;
 
     @Inject
-    public CreateUser(UserRepository userRepository, MessageSender messageSender) {
+    public CreateUser(
+            final UserRepository userRepository,
+            final MessageSender messageSender) {
         this.userRepository = userRepository;
         this.messageSender = messageSender;
     }
 
-    public User create(@Valid User user){
+    public User create(@Valid final User user) {
         User savedUser = userRepository.save(user);
         messageSender.sendCode(savedUser);
         return savedUser;

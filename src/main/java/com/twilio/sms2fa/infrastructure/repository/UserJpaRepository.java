@@ -14,12 +14,12 @@ public class UserJpaRepository implements UserRepository {
     private EntityManager entityManager;
 
     @Inject
-    public UserJpaRepository(EntityManager entityManager) {
+    public UserJpaRepository(final EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     @Override
-    public User save(User user) {
+    public User save(final User user) {
         entityManager.getTransaction().begin();
         User mergedUser = entityManager.merge(user);
         entityManager.getTransaction().commit();
@@ -27,12 +27,12 @@ public class UserJpaRepository implements UserRepository {
     }
 
     @Override
-    public User findById(long id) {
+    public User findById(final long id) {
         return entityManager.find(User.class, id);
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public Optional<User> findByEmail(final String email) {
         return entityManager
                 .createQuery("SELECT u FROM User u WHERE u.email = :email")
                 .setParameter("email", email)

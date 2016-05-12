@@ -9,16 +9,15 @@ public enum ExternalResource {
     SECRETS("/secrets/"),
     SESSIONS("/sessions/"),
     SESSIONS_NEW("/sessions/new/"),
-    LOGOUT("/logout/"),
-    ;
+    LOGOUT("/logout/");
 
     private String path;
 
-    ExternalResource(String path) {
+    ExternalResource(final String path) {
         this.path = path;
     }
 
-    public String getPath(){
+    public String getPath() {
         return path;
     }
 }

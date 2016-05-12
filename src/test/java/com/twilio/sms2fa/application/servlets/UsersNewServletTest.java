@@ -28,7 +28,7 @@ public class UsersNewServletTest {
     private UsersNewServlet usersNewServlet;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
         usersNewServlet = new UsersNewServlet();
     }

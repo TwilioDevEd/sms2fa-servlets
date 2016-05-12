@@ -20,19 +20,21 @@ public class SessionsServlet extends HttpServlet {
     private LogIn logIn;
 
     @Inject
-    public SessionsServlet(LogIn logIn) {
+    public SessionsServlet(final LogIn logIn) {
         this.logIn = logIn;
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(final HttpServletRequest request,
+                          final HttpServletResponse response)
+            throws ServletException, IOException {
         try {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             User user = logIn.authenticate(email, password);
             request.getSession().setAttribute("user", user);
             response.sendRedirect(ExternalResource.CONFIRMATIONS_NEW.getPath());
-        } catch (WrongUserPasswordException e){
+        } catch (WrongUserPasswordException e) {
             request.setAttribute("errorMessage", e.getMessage());
             request.getRequestDispatcher(InternalResource.SESSIONS_NEW_JSP.getPath()).forward(request, response);
         }

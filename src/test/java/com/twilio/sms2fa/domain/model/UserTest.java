@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class UserTest {
 
     @Test
-    public void shouldGenerate6DigitCode(){
+    public void shouldGenerate6DigitCode() {
         String code = User.generateVerificationCode();
 
         String regex = "^\\d{6}$";
@@ -21,7 +21,7 @@ public class UserTest {
     }
 
     @Test
-    public void shouldGenerateCodeForUserOnConstructor(){
+    public void shouldGenerateCodeForUserOnConstructor() {
         User user = new User("foo", "bar", "foo@bar.com", "+12321321321", "pass");
 
         assertThat(user.getVerificationCode(), is(not(nullValue())));

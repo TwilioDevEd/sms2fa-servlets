@@ -9,7 +9,7 @@ public enum InternalResource {
 
     private String path;
 
-    InternalResource(String path) {
+    InternalResource(final String path) {
         this.path = path;
     }
 

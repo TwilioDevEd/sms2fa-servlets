@@ -28,7 +28,7 @@ public class ConfirmationsNewServletTest {
     private ConfirmationsNewServlet servlet;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
         servlet = new ConfirmationsNewServlet();
     }

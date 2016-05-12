@@ -10,13 +10,13 @@ import static org.junit.Assert.assertTrue;
 public class ConfirmUserTest {
 
     @Test(expected = WrongVerificationCodeException.class)
-    public void shouldThrowExceptionWhenConfirmWithWrongVerificationCode(){
+    public void shouldThrowExceptionWhenConfirmWithWrongVerificationCode() {
         User user = new UserBuilder().buildWithVerificationCode("123123");
         user.confirm("111111");
     }
 
     @Test
-    public void shouldBeConfirmedWhenConfirmWithWrongVerificationCode(){
+    public void shouldBeConfirmedWhenConfirmWithWrongVerificationCode() {
         User user = new UserBuilder().buildWithVerificationCode("123123");
         user.confirm("123123");
         assertTrue(user.isConfirmed());

@@ -28,7 +28,7 @@ public class SecretsServletTest {
     private SecretsServlet secretsServlet;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
         secretsServlet = new SecretsServlet();
     }

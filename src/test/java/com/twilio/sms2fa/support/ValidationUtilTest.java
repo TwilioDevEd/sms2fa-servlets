@@ -13,7 +13,7 @@ import static org.hamcrest.core.Is.is;
 public class ValidationUtilTest {
 
     @Test
-    public void shouldFormatMessageWithHtmlUlLiTags(){
+    public void shouldFormatMessageWithHtmlUlLiTags() {
         String firstNameMessage = "First Name may not be blank";
         String lastNameMessage = "Last Name may not be blank";
         LinkedHashSet<ConstraintViolation<?>> constraintViolations = new LinkedHashSet<>();
@@ -23,6 +23,6 @@ public class ValidationUtilTest {
 
         String message = ValidationUtil.extractMessage(constraintViolationException);
 
-        assertThat(message, is("<ul><li>"+lastNameMessage+"</li><li>"+firstNameMessage+"</li></ul>"));
+        assertThat(message, is("<ul><li>" + lastNameMessage + "</li><li>" + firstNameMessage + "</li></ul>"));
     }
 }

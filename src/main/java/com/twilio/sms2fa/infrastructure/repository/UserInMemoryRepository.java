@@ -17,7 +17,7 @@ public class UserInMemoryRepository implements UserRepository {
     private long sequence = 0;
 
     @Override
-    public User save(User user) {
+    public User save(final User user) {
         if (user.getId() == null) {
             setId(user, nextSequence());
         }
@@ -25,7 +25,7 @@ public class UserInMemoryRepository implements UserRepository {
         return user;
     }
 
-    private void setId(User user, long id) {
+    private void setId(final User user, final long id) {
         try {
             Field idField = FieldUtils.getField(User.class, "id", true);
             FieldUtils.writeField(idField, user, id);
@@ -35,18 +35,18 @@ public class UserInMemoryRepository implements UserRepository {
     }
 
     @Override
-    public User findById(long id) {
+    public User findById(final long id) {
         return users.get(id);
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
+    public Optional<User> findByEmail(final String email) {
         return users.values().stream()
                 .filter(user -> user.getEmail().equals(email))
                 .findFirst();
     }
 
-    public long nextSequence(){
+    private long nextSequence() {
         return ++sequence;
     }
 }

@@ -15,17 +15,17 @@ public class UserBuilder {
         return new User(firstName, lastName, email, phoneNumber, password);
     }
 
-    public UserBuilder withEmail(String email) {
+    public UserBuilder withEmail(final String email) {
         this.email = email;
         return this;
     }
 
-    public UserBuilder withPass(String password) {
+    public UserBuilder withPass(final String password) {
         this.password = password;
         return this;
     }
 
-    public User buildWithVerificationCode(String verificationCode) {
+    public User buildWithVerificationCode(final String verificationCode) {
         try {
             User user = build();
             FieldUtils.writeField(FieldUtils.getField(User.class, "verificationCode", true), user, verificationCode);

@@ -39,7 +39,7 @@ public class ConfirmationsServletTest {
     private User userInSession;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
         when(request.getSession()).thenReturn(session);
         userInSession = new UserBuilder().build();

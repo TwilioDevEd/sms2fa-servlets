@@ -74,5 +74,4 @@ public class UserJpaRepositoryTest {
         assertThat(userFound.getId(), is(user.getId()));
     }
 
-
 }

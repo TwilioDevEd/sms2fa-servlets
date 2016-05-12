@@ -33,7 +33,7 @@ public class AuthenticationFilterTest {
     private FilterChain filterChain;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
         when(request.getSession()).thenReturn(session);
         filter = new AuthenticationFilter();

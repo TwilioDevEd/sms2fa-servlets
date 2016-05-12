@@ -4,12 +4,16 @@ import javax.validation.ConstraintViolationException;
 
 import static java.lang.String.format;
 
-public class ValidationUtil {
-    public static String extractMessage(ConstraintViolationException e) {
+public final class ValidationUtil {
+
+    private ValidationUtil() {
+    }
+
+    public static String extractMessage(final ConstraintViolationException e) {
         return format("<ul>%s</ul>",
-                    e.getConstraintViolations().stream()
-                    .map(constraintViolation -> format("<li>%s</li>", constraintViolation.getMessage()))
-                    .reduce((s, s2) -> s+s2)
-                    .get());
+                e.getConstraintViolations().stream()
+                        .map(cv -> format("<li>%s</li>", cv.getMessage()))
+                        .reduce((s, s2) -> s + s2)
+                        .get());
     }
 }

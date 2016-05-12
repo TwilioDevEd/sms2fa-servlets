@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 
 import static org.mockito.Mockito.verify;
@@ -33,7 +32,7 @@ public class LogoutServletTest {
     private LogoutServlet logoutServlet;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
         when(request.getSession()).thenReturn(session);
         when(request.getRequestDispatcher("/WEB-INF/pages/sessions/new.jsp")).thenReturn(requestDispatcher);

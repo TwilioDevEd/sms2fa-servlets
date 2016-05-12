@@ -13,7 +13,9 @@ import java.io.IOException;
 public class SecretsServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(final HttpServletRequest request,
+                         final HttpServletResponse response)
+            throws ServletException, IOException {
         request.getRequestDispatcher(InternalResource.SECRETS_INDEX_JSP.getPath()).forward(request, response);
     }
 

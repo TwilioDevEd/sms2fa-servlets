@@ -15,12 +15,14 @@ public class LogIn {
     private MessageSender messageSender;
 
     @Inject
-    public LogIn(UserRepository userRepository, MessageSender messageSender) {
+    public LogIn(
+            final UserRepository userRepository,
+            final MessageSender messageSender) {
         this.userRepository = userRepository;
         this.messageSender = messageSender;
     }
 
-    public User authenticate(String email, String password) {
+    public User authenticate(final String email, final String password) {
         Optional<User> user = userRepository.findByEmail(email);
         user.ifPresent(user1 -> {
             if (user1.authenticate(password)) {

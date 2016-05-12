@@ -11,11 +11,11 @@ public class ConfirmUser {
     private UserRepository userRepository;
 
     @Inject
-    public ConfirmUser(UserRepository userRepository) {
+    public ConfirmUser(final UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public void confirm(User user, String verificationCode){
+    public void confirm(final User user, final String verificationCode) {
         user.confirm(verificationCode);
         userRepository.save(user);
     }

@@ -26,7 +26,7 @@ public class LogInTest {
     private LogIn logIn;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         initMocks(this);
 
         userRepository = new UserInMemoryRepository();
@@ -39,17 +39,17 @@ public class LogInTest {
     }
 
     @Test(expected = WrongUserPasswordException.class)
-    public void shouldThrowExceptionWhenPasswordIsWrong(){
+    public void shouldThrowExceptionWhenPasswordIsWrong() {
         logIn.authenticate("login@bar.com", "1");
     }
 
     @Test(expected = WrongUserPasswordException.class)
-    public void shouldThrowExceptionWhenEmailDoesNotExist(){
+    public void shouldThrowExceptionWhenEmailDoesNotExist() {
         logIn.authenticate("crazy@bar.com", "1234");
     }
 
     @Test
-    public void shouldGenerateAndSaveUserWhenPassIsCorrect(){
+    public void shouldGenerateAndSaveUserWhenPassIsCorrect() {
         User user = userRepository.findById(1L);
         String verificationCode = user.getVerificationCode();
 
@@ -59,7 +59,7 @@ public class LogInTest {
     }
 
     @Test
-    public void shouldSendMessageWhenPassIsCorrect(){
+    public void shouldSendMessageWhenPassIsCorrect() {
         User user = userRepository.findById(1L);
 
         logIn.authenticate("login@bar.com", "1234");
