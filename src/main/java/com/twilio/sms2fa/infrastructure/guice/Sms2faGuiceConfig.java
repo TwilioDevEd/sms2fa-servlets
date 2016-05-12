@@ -4,6 +4,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.google.inject.servlet.GuiceServletContextListener;
+import ru.vyarus.guice.validator.ImplicitValidationModule;
 
 public class Sms2faGuiceConfig extends GuiceServletContextListener {
 
@@ -12,7 +13,8 @@ public class Sms2faGuiceConfig extends GuiceServletContextListener {
         return Guice.createInjector(
                 new JpaPersistModule("jpa-sms2fa"),
                 new Sms2faServiceModule(),
-                new Sms2faServletModule());
+                new Sms2faServletModule(),
+                new ImplicitValidationModule());
     }
 
 }

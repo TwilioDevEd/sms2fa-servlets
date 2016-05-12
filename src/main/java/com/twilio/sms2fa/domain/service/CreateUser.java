@@ -5,6 +5,8 @@ import com.google.inject.Singleton;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.repository.UserRepository;
 
+import javax.validation.Valid;
+
 @Singleton
 public class CreateUser {
 
@@ -17,7 +19,7 @@ public class CreateUser {
         this.messageSender = messageSender;
     }
 
-    public User create(User user){
+    public User create(@Valid User user){
         User savedUser = userRepository.save(user);
         messageSender.sendCode(savedUser);
         return savedUser;

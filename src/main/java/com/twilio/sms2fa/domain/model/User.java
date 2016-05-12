@@ -1,8 +1,11 @@
 package com.twilio.sms2fa.domain.model;
 
 import com.twilio.sms2fa.domain.exception.WrongVerificationCodeException;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,12 +17,32 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Column(name="FIRST_NAME")
+    @NotBlank(message = "First Name may not be blank")
     private String firstName;
+
+    @Column(name="LAST_NAME")
+    @NotBlank(message = "Last Name may not be blank")
     private String lastName;
+
+    @Column(name="EMAIL", unique = true)
+    @NotBlank(message = "Email may not be blank")
+    @Email(message = "Email format does not match")
     private String email;
+
+    @NotBlank(message = "Password may not be blank")
+    @Column(name="PASSWORD")
     private String password;
-    private String verificationCode;
+
+    @NotBlank(message = "Phone Number may not be blank")
+    @Column(name="PHONE_NUMBER")
     private String phoneNumber;
+
+    @Column(name="VERIFICATION_CODE")
+    private String verificationCode;
+
+    @Column(name="CONFIRMED")
     private boolean confirmed;
 
     // required by orm

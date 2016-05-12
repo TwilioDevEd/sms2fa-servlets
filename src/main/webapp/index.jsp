@@ -49,7 +49,7 @@
           <button class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true"> &times;</span>
           </button>
-          <c:out value="${noticeMessage}"/>
+          ${noticeMessage}
         </div>
     </c:if>
     <c:if test="${errorMessage != null}">
@@ -57,7 +57,7 @@
           <button class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true"> &times;</span>
           </button>
-          <c:out value="${errorMessage}"/>
+          ${errorMessage}>
         </div>
     </c:if>
 
