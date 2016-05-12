@@ -16,6 +16,7 @@ public class User {
 
     public static final int MAX_VERIFICATION_CODE = 100000;
     public static final int MIN_VERIFICATION_CODE = 999999;
+
     @Id
     @GeneratedValue
     private Long id;
