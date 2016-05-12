@@ -7,7 +7,7 @@
     <display-name>sms2fa</display-name>
 
     <listener>
-        <listener-class>com.twilio.sms2fa.infrastructure.guice.Sms2faGuiceServletConfig</listener-class>
+        <listener-class>com.twilio.sms2fa.infrastructure.guice.Sms2faGuiceConfig</listener-class>
     </listener>
 
     <filter>
