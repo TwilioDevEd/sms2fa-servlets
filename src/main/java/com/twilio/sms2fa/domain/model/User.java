@@ -50,10 +50,6 @@ public class User {
         confirmed = true;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public Long getId(){
         return id;
     }

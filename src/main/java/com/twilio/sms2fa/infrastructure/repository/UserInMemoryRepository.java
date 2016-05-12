@@ -3,7 +3,9 @@ package com.twilio.sms2fa.infrastructure.repository;
 import com.google.inject.Singleton;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.repository.UserRepository;
+import org.apache.commons.lang3.reflect.FieldUtils;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -17,10 +19,19 @@ public class UserInMemoryRepository implements UserRepository {
     @Override
     public User save(User user) {
         if (user.getId() == null) {
-            user.setId(nextSequence());
+            setId(user, nextSequence());
         }
         users.put(user.getId(), user);
         return user;
+    }
+
+    private void setId(User user, long id) {
+        try {
+            Field idField = FieldUtils.getField(User.class, "id", true);
+            FieldUtils.writeField(idField, user, id);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
