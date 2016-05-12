@@ -1,6 +1,5 @@
 package com.twilio.sms2fa.application.servlets;
 
-import com.twilio.sms2fa.application.constants.InternalResource;
 import com.twilio.sms2fa.domain.exception.WrongVerificationCodeException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.model.UserBuilder;
@@ -10,12 +9,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
+import static com.twilio.sms2fa.application.constants.InternalResource
+        .CONFIRMATIONS_NEW_JSP;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -49,11 +48,13 @@ public class ConfirmationsServletTest {
     }
 
     @Test
-    public void shouldForwardToConfirmationsNewJspWhenItThrowsWrongVerificationCodeException() throws ServletException, IOException {
-        when(request.getRequestDispatcher(InternalResource.CONFIRMATIONS_NEW_JSP.getPath()))
+    public void shouldForwardToConfirmationsNewJspWhenItThrowsException()
+            throws Exception {
+        when(request.getRequestDispatcher(CONFIRMATIONS_NEW_JSP.getPath()))
                 .thenReturn(requestDispatcher);
         when(request.getParameter("verification_code")).thenReturn("123");
-        WrongVerificationCodeException ex = new WrongVerificationCodeException(userInSession.getVerificationCode());
+        WrongVerificationCodeException ex = new WrongVerificationCodeException(
+                userInSession.getVerificationCode());
 
         doThrow(ex).when(confirmUser).confirm(userInSession, "123");
 
@@ -63,8 +64,9 @@ public class ConfirmationsServletTest {
     }
 
     @Test
-    public void shouldRedirectToSecretsWhenItConfirms() throws ServletException, IOException {
-        when(request.getParameter("verification_code")).thenReturn(userInSession.getVerificationCode());
+    public void shouldRedirectToSecretsWhenItConfirms() throws Exception {
+        when(request.getParameter("verification_code"))
+                .thenReturn(userInSession.getVerificationCode());
 
         servlet.doPost(request, response);
         verify(response, times(1)).sendRedirect("/secrets/");

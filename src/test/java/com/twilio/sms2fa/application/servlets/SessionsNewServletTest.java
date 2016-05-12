@@ -6,10 +6,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -34,8 +32,9 @@ public class SessionsNewServletTest {
     }
 
     @Test
-    public void shouldForwardToSessionsNewJsp() throws ServletException, IOException {
-        when(request.getRequestDispatcher(InternalResource.SESSIONS_NEW_JSP.getPath()))
+    public void shouldForwardToSessionsNewJsp() throws Exception {
+        when(request.getRequestDispatcher(InternalResource
+                .SESSIONS_NEW_JSP.getPath()))
                 .thenReturn(requestDispatcher);
 
         sessionsNewServlet.doGet(request, response);

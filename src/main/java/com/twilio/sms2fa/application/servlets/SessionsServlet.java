@@ -3,7 +3,6 @@ package com.twilio.sms2fa.application.servlets;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.twilio.sms2fa.application.constants.ExternalResource;
-import com.twilio.sms2fa.application.constants.InternalResource;
 import com.twilio.sms2fa.domain.exception.WrongUserPasswordException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.service.LogIn;
@@ -13,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import static com.twilio.sms2fa.application.constants.InternalResource
+        .SESSIONS_NEW_JSP;
 
 @Singleton
 public class SessionsServlet extends HttpServlet {
@@ -36,7 +38,8 @@ public class SessionsServlet extends HttpServlet {
             response.sendRedirect(ExternalResource.CONFIRMATIONS_NEW.getPath());
         } catch (WrongUserPasswordException e) {
             request.setAttribute("errorMessage", e.getMessage());
-            request.getRequestDispatcher(InternalResource.SESSIONS_NEW_JSP.getPath()).forward(request, response);
+            request.getRequestDispatcher(SESSIONS_NEW_JSP.getPath())
+                    .forward(request, response);
         }
     }
 }

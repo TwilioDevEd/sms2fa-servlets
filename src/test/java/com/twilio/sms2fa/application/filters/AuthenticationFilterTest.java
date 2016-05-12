@@ -5,11 +5,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -40,7 +38,7 @@ public class AuthenticationFilterTest {
     }
 
     @Test
-    public void shouldRedirectIfItIsNotAuthenticated() throws IOException, ServletException {
+    public void shouldRedirectIfItIsNotAuthenticated() throws Exception {
         filter.doFilter(request, response, filterChain);
 
         verify(filterChain, times(0)).doFilter(request, response);
@@ -48,7 +46,7 @@ public class AuthenticationFilterTest {
     }
 
     @Test
-    public void shouldContinueTheFilterChainIfItIsAuthenticated() throws IOException, ServletException {
+    public void shouldContinueChainIfItIsAuthenticated() throws Exception {
         when(session.getAttribute("authenticated")).thenReturn(true);
         filter.doFilter(request, response, filterChain);
 

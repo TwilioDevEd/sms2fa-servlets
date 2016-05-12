@@ -1,6 +1,9 @@
 package com.twilio.sms2fa.domain.model;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
+import java.lang.reflect.Field;
+
+import static org.apache.commons.lang3.reflect.FieldUtils.getField;
+import static org.apache.commons.lang3.reflect.FieldUtils.writeField;
 
 public class UserBuilder {
 
@@ -9,7 +12,6 @@ public class UserBuilder {
     private String email = "foo@bar.com";
     private String phoneNumber = "123123123123";
     private String password = "pass";
-    private String verificationCode;
 
     public User build() {
         return new User(firstName, lastName, email, phoneNumber, password);
@@ -28,7 +30,9 @@ public class UserBuilder {
     public User buildWithVerificationCode(final String verificationCode) {
         try {
             User user = build();
-            FieldUtils.writeField(FieldUtils.getField(User.class, "verificationCode", true), user, verificationCode);
+            Field verificationCodeField = getField(User.class,
+                    "verificationCode", true);
+            writeField(verificationCodeField, user, verificationCode);
             return user;
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);

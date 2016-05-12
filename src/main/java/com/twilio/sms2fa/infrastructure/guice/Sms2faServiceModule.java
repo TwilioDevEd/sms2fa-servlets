@@ -15,7 +15,8 @@ import com.twilio.sms2fa.infrastructure.service.TwilioMessageSender;
 
 public class Sms2faServiceModule extends AbstractModule {
 
-    private ApplicationProperties applicationProperties = new ApplicationProperties();
+    private ApplicationProperties applicationProperties =
+            new ApplicationProperties();
 
     @Override
     protected void configure() {

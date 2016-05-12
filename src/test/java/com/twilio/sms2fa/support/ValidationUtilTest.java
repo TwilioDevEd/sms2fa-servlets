@@ -16,13 +16,18 @@ public class ValidationUtilTest {
     public void shouldFormatMessageWithHtmlUlLiTags() {
         String firstNameMessage = "First Name may not be blank";
         String lastNameMessage = "Last Name may not be blank";
-        LinkedHashSet<ConstraintViolation<?>> constraintViolations = new LinkedHashSet<>();
-        constraintViolations.add(new StubbedConstraintViolation(firstNameMessage));
-        constraintViolations.add(new StubbedConstraintViolation(lastNameMessage));
-        ConstraintViolationException constraintViolationException = new ConstraintViolationException(constraintViolations);
+        LinkedHashSet<ConstraintViolation<?>> constraintViolations =
+                new LinkedHashSet<>();
+        constraintViolations.add(
+                new StubbedConstraintViolation(firstNameMessage));
+        constraintViolations.add(
+                new StubbedConstraintViolation(lastNameMessage));
+        ConstraintViolationException exception =
+                new ConstraintViolationException(constraintViolations);
 
-        String message = ValidationUtil.extractMessage(constraintViolationException);
+        String message = ValidationUtil.extractMessage(exception);
 
-        assertThat(message, is("<ul><li>" + lastNameMessage + "</li><li>" + firstNameMessage + "</li></ul>"));
+        assertThat(message, is("<ul><li>" + lastNameMessage + "</li><li>"
+                + firstNameMessage + "</li></ul>"));
     }
 }

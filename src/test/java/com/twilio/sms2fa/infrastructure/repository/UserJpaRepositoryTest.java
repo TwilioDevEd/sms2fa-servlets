@@ -21,15 +21,14 @@ public class UserJpaRepositoryTest {
 
     @Before
     public void setUp() throws ClassNotFoundException {
-        Class.forName("com.twilio.sms2fa.domain.model.User");
-        Class.forName("com.twilio.sms2fa.infrastructure.repository.UserJpaRepository");
-
-        JpaPersistModule testPersistModule = new JpaPersistModule("jpa-sms2fa-test");
+        JpaPersistModule testPersistModule =
+                new JpaPersistModule("jpa-sms2fa-test");
         Injector injector = Guice.createInjector(testPersistModule);
         PersistService instance = injector.getInstance(PersistService.class);
         instance.start();
         userJpaRepository = injector.getInstance(UserJpaRepository.class);
-        integrationTestHelper = injector.getInstance(IntegrationTestHelper.class);
+        integrationTestHelper = injector
+                .getInstance(IntegrationTestHelper.class);
         integrationTestHelper.cleanTable(User.class);
     }
 

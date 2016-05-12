@@ -23,7 +23,8 @@ public class IntegrationTestHelper {
 
     public <T> void cleanTable(final Class<T> clazz) {
         this.entityManager.getTransaction().begin();
-        String deleteStatement = String.format("delete from %s", clazz.getSimpleName());
+        String deleteStatement = String.format("delete from %s", clazz
+                .getSimpleName());
         this.entityManager.createQuery(deleteStatement).executeUpdate();
         this.entityManager.getTransaction().commit();
     }

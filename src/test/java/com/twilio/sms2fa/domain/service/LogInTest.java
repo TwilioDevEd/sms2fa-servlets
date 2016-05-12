@@ -33,9 +33,12 @@ public class LogInTest {
 
         logIn = new LogIn(userRepository, messageSender);
 
-        userRepository.save(new UserBuilder().withEmail("login@bar.com").withPass("1234").build());
-        userRepository.save(new UserBuilder().withEmail("test@bar.com").withPass("111").build());
-        userRepository.save(new UserBuilder().withEmail("foo@bar.com").withPass("abcd").build());
+        userRepository.save(new UserBuilder().withEmail("login@bar.com")
+                .withPass("1234").build());
+        userRepository.save(new UserBuilder().withEmail("test@bar.com")
+                .withPass("111").build());
+        userRepository.save(new UserBuilder().withEmail("foo@bar.com")
+                .withPass("abcd").build());
     }
 
     @Test(expected = WrongUserPasswordException.class)
@@ -55,7 +58,8 @@ public class LogInTest {
 
         logIn.authenticate("login@bar.com", "1234");
 
-        assertThat(verificationCode, is(not(userRepository.findById(1L).getVerificationCode())));
+        assertThat(verificationCode,
+                is(not(userRepository.findById(1L).getVerificationCode())));
     }
 
     @Test

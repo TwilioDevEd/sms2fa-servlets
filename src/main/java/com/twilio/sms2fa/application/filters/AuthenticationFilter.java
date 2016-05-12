@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.twilio.sms2fa.application.constants.ExternalResource.SESSIONS_NEW;
+import static com.twilio.sms2fa.application.constants.ExternalResource
+        .SESSIONS_NEW;
 
 @Singleton
 public class AuthenticationFilter implements Filter {
@@ -31,7 +32,8 @@ public class AuthenticationFilter implements Filter {
     }
 
     public boolean isAuthenticated(final HttpServletRequest request) {
-        return Boolean.TRUE.equals(request.getSession().getAttribute("authenticated"));
+        return Boolean.TRUE.equals(request.getSession()
+                .getAttribute("authenticated"));
     }
 
     @Override

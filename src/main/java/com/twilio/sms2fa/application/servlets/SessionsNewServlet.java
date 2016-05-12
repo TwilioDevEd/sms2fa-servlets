@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.twilio.sms2fa.application.constants.InternalResource.SESSIONS_NEW_JSP;
+import static com.twilio.sms2fa.application.constants.InternalResource
+        .SESSIONS_NEW_JSP;
 
 @Singleton
 public class SessionsNewServlet extends HttpServlet {

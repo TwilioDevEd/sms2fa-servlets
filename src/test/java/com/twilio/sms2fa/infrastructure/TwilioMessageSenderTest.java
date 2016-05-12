@@ -21,7 +21,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 public class TwilioMessageSenderTest {
 
-    private static final String MY_TWILIO_PHONE_NUMBER = "my-twilio-phone-number";
+    private static final String TWILIO_NUMBER = "my-twilio-phone-number";
 
     private TwilioMessageSender twilioMessageSender;
 
@@ -34,25 +34,26 @@ public class TwilioMessageSenderTest {
     @Before
     public void setUp() throws TwilioRestException {
         initMocks(this);
-        this.twilioMessageSender = new TwilioMessageSender(messageFactory, MY_TWILIO_PHONE_NUMBER);
+        this.twilioMessageSender = new TwilioMessageSender(
+                messageFactory, TWILIO_NUMBER);
         when(messageFactory.create(anyList())).thenReturn(message);
     }
 
     @Test
-    public void shouldSendSmsToGivenPhoneAndCode() throws TwilioRestException {
+    public void shouldSendSmsToGivenPhoneAndCode() throws Exception {
         User user = new UserBuilder().build();
 
         twilioMessageSender.sendCode(user);
 
         verify(messageFactory).create(asList(
-                new BasicNameValuePair("From", MY_TWILIO_PHONE_NUMBER),
+                new BasicNameValuePair("From", TWILIO_NUMBER),
                 new BasicNameValuePair("To", user.getPhoneNumber()),
                 new BasicNameValuePair("Body", user.getVerificationCode())
         ));
     }
 
     @Test
-    public void shouldReturnTrueWhenStatusIsQueued() throws TwilioRestException {
+    public void shouldReturnTrueWhenStatusIsQueued() throws Exception {
         User user = new UserBuilder().build();
         when(message.getStatus()).thenReturn("queued");
 
@@ -62,7 +63,7 @@ public class TwilioMessageSenderTest {
     }
 
     @Test
-    public void shouldReturnFalseWhenStatusIsQueued() throws TwilioRestException {
+    public void shouldReturnFalseWhenStatusIsQueued() throws Exception {
         User user = new UserBuilder().build();
         when(message.getStatus()).thenReturn("failed");
 

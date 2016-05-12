@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.twilio.sms2fa.application.constants.ExternalResource.SECRETS;
-import static com.twilio.sms2fa.application.constants.InternalResource.CONFIRMATIONS_NEW_JSP;
+import static com.twilio.sms2fa.application.constants.InternalResource
+        .CONFIRMATIONS_NEW_JSP;
 
 @Singleton
 public class ConfirmationsServlet extends HttpServlet {

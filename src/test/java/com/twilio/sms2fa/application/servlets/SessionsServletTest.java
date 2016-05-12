@@ -44,22 +44,25 @@ public class SessionsServletTest {
     }
 
     @Test
-    public void shouldForwardToSessionsNewJspWhenLogInThrowsException() throws ServletException, IOException {
+    public void shouldForwardToSessionsNewJspWhenLogInThrowsException()
+            throws ServletException, IOException {
         when(request.getRequestDispatcher("/WEB-INF/pages/sessions/new.jsp"))
                 .thenReturn(requestDispatcher);
 
-        doThrow(new WrongUserPasswordException()).when(logIn).authenticate("foo", "bar");
+        doThrow(new WrongUserPasswordException()).when(logIn)
+                .authenticate("foo", "bar");
         when(request.getParameter("email")).thenReturn("foo");
         when(request.getParameter("password")).thenReturn("bar");
 
         servlet.doPost(request, response);
 
-        verify(request, times(1)).setAttribute("errorMessage", new WrongUserPasswordException().getMessage());
+        verify(request, times(1)).setAttribute("errorMessage",
+                new WrongUserPasswordException().getMessage());
         verify(requestDispatcher, times(1)).forward(request, response);
     }
 
     @Test
-    public void shouldAddToSessionWhenAuthenticates() throws ServletException, IOException {
+    public void shouldAddToSessionWhenAuthenticates() throws Exception {
         User user = new UserBuilder().build();
         when(request.getParameter("email")).thenReturn("foo");
         when(request.getParameter("password")).thenReturn("bar");

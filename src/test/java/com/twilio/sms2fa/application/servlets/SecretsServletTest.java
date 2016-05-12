@@ -1,16 +1,15 @@
 package com.twilio.sms2fa.application.servlets;
 
-import com.twilio.sms2fa.application.constants.InternalResource;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
+import static com.twilio.sms2fa.application.constants.InternalResource
+        .SECRETS_INDEX_JSP;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -34,8 +33,8 @@ public class SecretsServletTest {
     }
 
     @Test
-    public void shouldForwardToSessionsNewJsp() throws ServletException, IOException {
-        when(request.getRequestDispatcher(InternalResource.SECRETS_INDEX_JSP.getPath()))
+    public void shouldForwardToSessionsNewJsp() throws Exception {
+        when(request.getRequestDispatcher(SECRETS_INDEX_JSP.getPath()))
                 .thenReturn(requestDispatcher);
 
         secretsServlet.doGet(request, response);
