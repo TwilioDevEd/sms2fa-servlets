@@ -1,5 +1,6 @@
 package com.twilio.sms2fa.domain.service;
 
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.model.UserBuilder;
 import com.twilio.sms2fa.domain.repository.UserRepository;
@@ -34,14 +35,14 @@ public class CreateUserTest {
     }
 
     @Test
-    public void shouldSendMessage() {
+    public void shouldSendMessage() throws TwilioRestException {
         createUser.create(user);
 
         verify(messageSender, only()).sendCode(user);
     }
 
     @Test
-    public void shouldSaveUser() {
+    public void shouldSaveUser() throws TwilioRestException {
         User userCreated = createUser.create(user);
         String id = userCreated.getId();
         assertThat(userRepository.findById(id), is(userCreated));

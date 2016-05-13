@@ -1,5 +1,6 @@
 package com.twilio.sms2fa.application.servlets;
 
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sms2fa.domain.exception.WrongUserPasswordException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.model.UserBuilder;
@@ -45,7 +46,7 @@ public class SessionsServletTest {
 
     @Test
     public void shouldForwardToSessionsNewJspWhenLogInThrowsException()
-            throws ServletException, IOException {
+            throws ServletException, IOException, TwilioRestException {
         when(request.getRequestDispatcher("/WEB-INF/pages/sessions/new.jsp"))
                 .thenReturn(requestDispatcher);
 

@@ -2,6 +2,8 @@ package com.twilio.sms2fa.application.servlets;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.twilio.sdk.TwilioRestException;
+import com.twilio.sms2fa.application.util.ServletUtil;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.service.CreateUser;
 
@@ -16,7 +18,6 @@ import static com.twilio.sms2fa.application.constants.ExternalResource
         .CONFIRMATIONS_NEW;
 import static com.twilio.sms2fa.application.constants.InternalResource
         .USERS_NEW_JSP;
-import static com.twilio.sms2fa.support.ValidationUtil.extractMessage;
 
 @Singleton
 public class UsersServlet extends HttpServlet {
@@ -43,9 +44,11 @@ public class UsersServlet extends HttpServlet {
             request.getSession().setAttribute("user", user);
             response.sendRedirect(CONFIRMATIONS_NEW.getPath());
         } catch (ConstraintViolationException e) {
-            request.setAttribute("errorMessage", extractMessage(e));
-            request.getRequestDispatcher(USERS_NEW_JSP.getPath())
-                    .forward(request, response);
+            ServletUtil.handleException(e, request, response,
+                    USERS_NEW_JSP.getPath());
+        } catch (TwilioRestException e) {
+            ServletUtil.handleException(e, request, response,
+                    USERS_NEW_JSP.getPath());
         }
 
     }

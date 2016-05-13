@@ -1,4 +1,4 @@
-package com.twilio.sms2fa.support;
+package com.twilio.sms2fa.application.util;
 
 import javax.validation.ConstraintViolationException;
 

@@ -1,6 +1,7 @@
 package com.twilio.sms2fa.support;
 
 import com.twilio.sms2fa.application.servlets.StubbedConstraintViolation;
+import com.twilio.sms2fa.application.util.ValidationUtil;
 import org.junit.Test;
 
 import javax.validation.ConstraintViolation;

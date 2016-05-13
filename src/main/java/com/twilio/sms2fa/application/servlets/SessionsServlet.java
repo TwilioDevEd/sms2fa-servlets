@@ -2,7 +2,9 @@ package com.twilio.sms2fa.application.servlets;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sms2fa.application.constants.ExternalResource;
+import com.twilio.sms2fa.application.util.ServletUtil;
 import com.twilio.sms2fa.domain.exception.WrongUserPasswordException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.service.LogIn;
@@ -37,9 +39,11 @@ public class SessionsServlet extends HttpServlet {
             request.getSession().setAttribute("user", user);
             response.sendRedirect(ExternalResource.CONFIRMATIONS_NEW.getPath());
         } catch (WrongUserPasswordException e) {
-            request.setAttribute("errorMessage", e.getMessage());
-            request.getRequestDispatcher(SESSIONS_NEW_JSP.getPath())
-                    .forward(request, response);
+            ServletUtil.handleException(e, request, response,
+                    SESSIONS_NEW_JSP.getPath());
+        } catch (TwilioRestException e) {
+            ServletUtil.handleException(e, request, response,
+                    SESSIONS_NEW_JSP.getPath());
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.twilio.sms2fa.domain.service;
 
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sms2fa.domain.exception.WrongUserPasswordException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.model.UserBuilder;
@@ -48,17 +49,20 @@ public class LogInTest {
     }
 
     @Test(expected = WrongUserPasswordException.class)
-    public void shouldThrowExceptionWhenPasswordIsWrong() {
+    public void shouldThrowExceptionWhenPasswordIsWrong()
+            throws TwilioRestException {
         logIn.authenticate("login@bar.com", "1");
     }
 
     @Test(expected = WrongUserPasswordException.class)
-    public void shouldThrowExceptionWhenEmailDoesNotExist() {
+    public void shouldThrowExceptionWhenEmailDoesNotExist()
+            throws TwilioRestException {
         logIn.authenticate("crazy@bar.com", "1234");
     }
 
     @Test
-    public void shouldGenerateAndSaveUserWhenPassIsCorrect() {
+    public void shouldGenerateAndSaveUserWhenPassIsCorrect()
+            throws TwilioRestException {
         User user = userRepository.findById(firstUser.getId());
         String verificationCode = user.getVerificationCode();
 
@@ -70,7 +74,8 @@ public class LogInTest {
     }
 
     @Test
-    public void shouldSendMessageWhenPassIsCorrect() {
+    public void shouldSendMessageWhenPassIsCorrect()
+            throws TwilioRestException {
         User user = userRepository.findById(firstUser.getId());
 
         logIn.authenticate("login@bar.com", "1234");

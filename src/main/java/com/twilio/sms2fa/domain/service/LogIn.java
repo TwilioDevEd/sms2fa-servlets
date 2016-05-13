@@ -2,6 +2,7 @@ package com.twilio.sms2fa.domain.service;
 
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
+import com.twilio.sdk.TwilioRestException;
 import com.twilio.sms2fa.domain.exception.WrongUserPasswordException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.repository.UserRepository;
@@ -22,9 +23,11 @@ public class LogIn {
     }
 
     @Transactional
-    public User authenticate(final String email, final String password) {
-        Optional<User> user = userRepository.findByEmail(email);
-        user.ifPresent(user1 -> {
+    public User authenticate(final String email, final String password)
+            throws TwilioRestException {
+        Optional<User> userOpt = userRepository.findByEmail(email);
+        if (userOpt.isPresent()) {
+            User user1 = userOpt.get();
             if (user1.authenticate(password)) {
                 user1.generateNewVerificationCode();
                 userRepository.save(user1);
@@ -32,8 +35,8 @@ public class LogIn {
             } else {
                 throw new WrongUserPasswordException();
             }
-        });
-        user.orElseThrow(WrongUserPasswordException::new);
-        return user.get();
+        }
+        userOpt.orElseThrow(WrongUserPasswordException::new);
+        return userOpt.get();
     }
 }

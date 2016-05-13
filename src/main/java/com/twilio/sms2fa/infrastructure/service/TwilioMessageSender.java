@@ -35,17 +35,13 @@ public class TwilioMessageSender implements MessageSender {
     }
 
     @Override
-    public final boolean sendCode(final User user) {
-        try {
-            List<NameValuePair> params = asList(
-                    new BasicNameValuePair(FROM, fromPhoneNumber),
-                    new BasicNameValuePair(TO, user.getPhoneNumber()),
-                    new BasicNameValuePair(BODY, user.getVerificationCode())
-            );
-            Message sms = messageFactory.create(params);
-            return QUEUED.equals(sms.getStatus());
-        } catch (TwilioRestException e) {
-            throw new RuntimeException("Error on message creation", e);
-        }
+    public final boolean sendCode(final User user) throws TwilioRestException {
+        List<NameValuePair> params = asList(
+                new BasicNameValuePair(FROM, fromPhoneNumber),
+                new BasicNameValuePair(TO, user.getPhoneNumber()),
+                new BasicNameValuePair(BODY, user.getVerificationCode())
+        );
+        Message sms = messageFactory.create(params);
+        return QUEUED.equals(sms.getStatus());
     }
 }
