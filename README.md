@@ -16,19 +16,19 @@ SMS Two Factor Authentication implementation with Servlets and Twilio
 1. Create the application.properties in src/main/resources and edit it to match your configuration;
 
    ```bash
-   $ gradle generateProperties
+   $ ./gradlew generateProperties
    ```
 
 1. Make sure the tests succeed.
 
    ```bash
-   $ gradle check
+   $ ./gradlew check
    ```
 
 1. Start the server.
 
    ```bash
-   $ gradle appRun
+   $ ./gradlew appRun
    ```
 
 1. Check it out at [http://localhost:8080](http://localhost:8080).
