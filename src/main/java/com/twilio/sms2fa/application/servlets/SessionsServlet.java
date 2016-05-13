@@ -38,10 +38,7 @@ public class SessionsServlet extends HttpServlet {
             User user = logIn.authenticate(email, password);
             request.getSession().setAttribute("user", user);
             response.sendRedirect(ExternalResource.CONFIRMATIONS_NEW.getPath());
-        } catch (WrongUserPasswordException e) {
-            ServletUtil.handleException(e, request, response,
-                    SESSIONS_NEW_JSP.getPath());
-        } catch (TwilioRestException e) {
+        } catch (WrongUserPasswordException | TwilioRestException e) {
             ServletUtil.handleException(e, request, response,
                     SESSIONS_NEW_JSP.getPath());
         }

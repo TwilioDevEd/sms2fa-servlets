@@ -7,6 +7,7 @@ import com.twilio.sms2fa.application.util.ServletUtil;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.service.CreateUser;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,10 +44,8 @@ public class UsersServlet extends HttpServlet {
                     phoneNumber, password));
             request.getSession().setAttribute("user", user);
             response.sendRedirect(CONFIRMATIONS_NEW.getPath());
-        } catch (ConstraintViolationException e) {
-            ServletUtil.handleException(e, request, response,
-                    USERS_NEW_JSP.getPath());
-        } catch (TwilioRestException e) {
+        } catch (ConstraintViolationException | TwilioRestException
+                | PersistenceException e) {
             ServletUtil.handleException(e, request, response,
                     USERS_NEW_JSP.getPath());
         }

@@ -75,7 +75,7 @@ public class UserJpaRepositoryTest {
     }
 
     @Test(expected = PersistenceException.class)
-    public void shouldNotAllowTwoUsersWithSaveEmail(){
+    public void shouldNotAllowTwoUsersWithSaveEmail() {
         User user1 = new UserBuilder().withEmail("foooo@bar.com").build();
         User user2 = new UserBuilder().withEmail("foooo@bar.com").build();
         userJpaRepository.save(user1);
