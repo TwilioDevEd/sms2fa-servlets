@@ -65,15 +65,18 @@
 
         <h1>We're going to be best friends</h1>
         <p>Thanks for your interest in signing up! Can you tell us a bit about yourself?</p>
-        <form action="/users/" method="POST">
+        <form action="/users/" method="POST" id="new_user"
+        class="form-horizontal">
           <div class="form-group">
-            <label for="first_name" class="col-md-2 control-label">First Name</label>
+            <label for="first_name" class="col-md-2 control-label">First
+            name</label>
             <div class="col-sm-10">
               <input name="first_name" type="text" class="form-control"/>
             </div>
           </div>
           <div class="form-group">
-            <label for="last_name" class="col-md-2 control-label">Last Name</label>
+            <label for="last_name" class="col-md-2 control-label">Last
+            name</label>
             <div class="col-sm-10">
               <input name="last_name" type="text" class="form-control"/>
             </div>
