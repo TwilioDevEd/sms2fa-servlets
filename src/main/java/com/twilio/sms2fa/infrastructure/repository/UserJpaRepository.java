@@ -24,7 +24,7 @@ public class UserJpaRepository implements UserRepository {
     }
 
     @Override
-    public User findById(final long id) {
+    public User findById(final String id) {
         return entityManager.find(User.class, id);
     }
 

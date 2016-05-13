@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
@@ -22,6 +23,7 @@ public class UserJpaRepositoryTest {
 
     @Before
     public void setUp() throws ClassNotFoundException {
+        Class.forName("org.hibernate.jpa.HibernatePersistenceProvider");
         JpaPersistModule testPersistModule =
                 new JpaPersistModule("jpa-sms2fa-test");
         Injector injector = Guice.createInjector(testPersistModule);
@@ -44,7 +46,7 @@ public class UserJpaRepositoryTest {
         User user = new UserBuilder().build();
         user = userJpaRepository.save(user);
 
-        assertThat(user.getId(), is(1L));
+        assertThat(user.getId(), is(not(nullValue())));
     }
 
     @Test

@@ -42,9 +42,9 @@ public class CreateUserTest {
 
     @Test
     public void shouldSaveUser() {
-        createUser.create(user);
-
-        assertThat(userRepository.findById(1), is(user));
+        User userCreated = createUser.create(user);
+        String id = userCreated.getId();
+        assertThat(userRepository.findById(id), is(userCreated));
     }
 
 }

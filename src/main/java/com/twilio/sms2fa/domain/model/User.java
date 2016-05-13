@@ -7,9 +7,9 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Random;
+import java.util.UUID;
 
 @Entity
 public class User {
@@ -18,8 +18,7 @@ public class User {
     private static final int MIN_VERIFICATION_CODE = 999999;
 
     @Id
-    @GeneratedValue
-    private Long id;
+    private String id;
 
     @Column(name = "FIRST_NAME")
     @NotBlank(message = "First Name may not be blank")
@@ -55,6 +54,7 @@ public class User {
     public User(final String firstName, final String lastName,
                 final String email, final String phoneNumber,
                 final String password) {
+        this.id = UUID.randomUUID().toString();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -86,7 +86,7 @@ public class User {
         return BCrypt.checkpw(password, this.password);
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
