@@ -57,7 +57,7 @@
         <button class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true"> &times;</span>
         </button>
-        ${errorMessage}>
+        ${errorMessage}
       </div>
     </c:if>
     <div class="container">
