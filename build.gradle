@@ -38,5 +38,14 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
 
+task generateProperties(type: Copy) {
+    from 'src/main/resources/application.properties.example'
+    into 'src/main/resources'
+
+    rename { String fileName ->
+        fileName.replace('.example', '')
+    }
+    rename '(.+).example', '$1'
+}
 //Change context path (base url). otherwise defaults to name of project
 gretty.contextPath = ''
