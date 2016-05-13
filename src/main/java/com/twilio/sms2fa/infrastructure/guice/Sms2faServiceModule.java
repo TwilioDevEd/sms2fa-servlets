@@ -10,7 +10,7 @@ import com.twilio.sms2fa.domain.repository.UserRepository;
 import com.twilio.sms2fa.domain.service.ConfirmUser;
 import com.twilio.sms2fa.domain.service.CreateUser;
 import com.twilio.sms2fa.domain.service.MessageSender;
-import com.twilio.sms2fa.infrastructure.repository.UserInMemoryRepository;
+import com.twilio.sms2fa.infrastructure.repository.UserJpaRepository;
 import com.twilio.sms2fa.infrastructure.service.TwilioMessageSender;
 
 public class Sms2faServiceModule extends AbstractModule {
@@ -22,7 +22,7 @@ public class Sms2faServiceModule extends AbstractModule {
     protected void configure() {
         Names.bindProperties(binder(), applicationProperties);
 
-        bind(UserRepository.class).to(UserInMemoryRepository.class);
+        bind(UserRepository.class).to(UserJpaRepository.class);
         bind(MessageSender.class).to(TwilioMessageSender.class);
         bind(CreateUser.class);
         bind(ConfirmUser.class);

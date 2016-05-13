@@ -1,14 +1,12 @@
 package com.twilio.sms2fa.domain.service;
 
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.google.inject.persist.Transactional;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.repository.UserRepository;
 
 import javax.validation.Valid;
 
-@Singleton
 public class CreateUser {
 
     private UserRepository userRepository;
