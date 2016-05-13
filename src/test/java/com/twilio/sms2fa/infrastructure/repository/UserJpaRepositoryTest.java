@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.persistence.PersistenceException;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.IsNot.not;
@@ -23,7 +25,6 @@ public class UserJpaRepositoryTest {
 
     @Before
     public void setUp() throws ClassNotFoundException {
-        Class.forName("org.hibernate.jpa.HibernatePersistenceProvider");
         JpaPersistModule testPersistModule =
                 new JpaPersistModule("jpa-sms2fa-test");
         Injector injector = Guice.createInjector(testPersistModule);
@@ -38,7 +39,7 @@ public class UserJpaRepositoryTest {
 
     @After
     public void after() {
-        integrationTestHelper.finishTransaction();
+        integrationTestHelper.rollBackTransaction();
     }
 
     @Test
@@ -71,6 +72,14 @@ public class UserJpaRepositoryTest {
         User userFound = userJpaRepository.findById(user.getId());
 
         assertThat(userFound, is(user));
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void shouldNotAllowTwoUsersWithSaveEmail(){
+        User user1 = new UserBuilder().withEmail("foooo@bar.com").build();
+        User user2 = new UserBuilder().withEmail("foooo@bar.com").build();
+        userJpaRepository.save(user1);
+        userJpaRepository.save(user2);
     }
 
     @Test

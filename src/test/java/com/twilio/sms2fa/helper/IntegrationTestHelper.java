@@ -13,8 +13,8 @@ public class IntegrationTestHelper {
         this.entityManager = entityManager;
     }
 
-    public void finishTransaction() {
-        this.entityManager.getTransaction().commit();
+    public void rollBackTransaction() {
+        this.entityManager.getTransaction().rollback();
     }
 
     public void startTransaction() {
