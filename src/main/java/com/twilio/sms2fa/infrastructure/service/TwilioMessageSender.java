@@ -29,7 +29,7 @@ public class TwilioMessageSender implements MessageSender {
     @Inject
     public TwilioMessageSender(
             final MessageFactory messageFactory,
-            @Named("twilio.phone.number") final String fromPhoneNumber) {
+            @Named("TWILIO_PHONE_NUMBER") final String fromPhoneNumber) {
         this.messageFactory = messageFactory;
         this.fromPhoneNumber = fromPhoneNumber;
     }

@@ -8,4 +8,4 @@ target/
 *.ipr
 *.iws
 *.sqlite
-src/main/resources/application.properties
+*.env

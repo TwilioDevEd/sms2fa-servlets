@@ -1,18 +1,16 @@
 package com.twilio.sms2fa.infrastructure.guice;
 
-import java.io.IOException;
 import java.util.Properties;
 
 class ApplicationProperties extends Properties {
 
-    private static final String PROPERTIES = "/application.properties";
+    static final String TWILIO_ACCOUNT_SID = "TWILIO_ACCOUNT_SID";
+    static final String TWILIO_AUTH_TOKEN = "TWILIO_AUTH_TOKEN";
+    static final String TWILIO_PHONE_NUMBER = "TWILIO_PHONE_NUMBER";
 
     ApplicationProperties() {
-        try {
-            load(ApplicationProperties.class.getClassLoader()
-                    .getResourceAsStream(PROPERTIES));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        put(TWILIO_ACCOUNT_SID, System.getenv(TWILIO_ACCOUNT_SID));
+        put(TWILIO_AUTH_TOKEN, System.getenv(TWILIO_AUTH_TOKEN));
+        put(TWILIO_PHONE_NUMBER, System.getenv(TWILIO_PHONE_NUMBER));
     }
 }

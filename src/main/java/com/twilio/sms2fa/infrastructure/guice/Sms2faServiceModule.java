@@ -13,6 +13,11 @@ import com.twilio.sms2fa.domain.service.MessageSender;
 import com.twilio.sms2fa.infrastructure.repository.UserJpaRepository;
 import com.twilio.sms2fa.infrastructure.service.TwilioMessageSender;
 
+import static com.twilio.sms2fa.infrastructure.guice.ApplicationProperties
+        .TWILIO_ACCOUNT_SID;
+import static com.twilio.sms2fa.infrastructure.guice.ApplicationProperties
+        .TWILIO_AUTH_TOKEN;
+
 public class Sms2faServiceModule extends AbstractModule {
 
     private ApplicationProperties applicationProperties =
@@ -31,8 +36,8 @@ public class Sms2faServiceModule extends AbstractModule {
     @Provides
     public MessageFactory messageFactory() {
         TwilioRestClient client = new TwilioRestClient(
-                applicationProperties.getProperty("twilio.account.sid"),
-                applicationProperties.getProperty("twilio.auth.token"));
+                applicationProperties.getProperty(TWILIO_ACCOUNT_SID),
+                applicationProperties.getProperty(TWILIO_AUTH_TOKEN));
 
         Account account = client.getAccount();
         return account.getMessageFactory();
