@@ -26,7 +26,7 @@ import static com.twilio.sms2fa.application.constants.ExternalResource.USERS;
 import static com.twilio.sms2fa.application.constants.ExternalResource
         .USERS_NEW;
 
-public class Sms2faServletModule extends ServletModule {
+class Sms2faServletModule extends ServletModule {
 
     @Override
     public void configureServlets() {
