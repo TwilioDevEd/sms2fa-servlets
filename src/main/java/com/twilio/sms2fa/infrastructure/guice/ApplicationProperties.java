@@ -1,6 +1,9 @@
 package com.twilio.sms2fa.infrastructure.guice;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Properties;
+import java.util.stream.Stream;
 
 class ApplicationProperties extends Properties {
 
@@ -9,8 +12,23 @@ class ApplicationProperties extends Properties {
     static final String TWILIO_PHONE_NUMBER = "TWILIO_PHONE_NUMBER";
 
     ApplicationProperties() {
-        put(TWILIO_ACCOUNT_SID, System.getenv(TWILIO_ACCOUNT_SID));
-        put(TWILIO_AUTH_TOKEN, System.getenv(TWILIO_AUTH_TOKEN));
-        put(TWILIO_PHONE_NUMBER, System.getenv(TWILIO_PHONE_NUMBER));
+        this(System.getenv(TWILIO_ACCOUNT_SID),
+                System.getenv(TWILIO_AUTH_TOKEN),
+                System.getenv(TWILIO_PHONE_NUMBER)
+        );
+    }
+
+    ApplicationProperties(
+            final String accountSid,
+            final String authToken,
+            final String phoneNumber) {
+        if (Stream.of(accountSid, authToken, phoneNumber)
+                .anyMatch(StringUtils::isEmpty)) {
+            throw new IllegalArgumentException(
+                    "All required environment variables should be set.");
+        }
+        put(TWILIO_ACCOUNT_SID, accountSid);
+        put(TWILIO_AUTH_TOKEN, authToken);
+        put(TWILIO_PHONE_NUMBER, phoneNumber);
     }
 }
