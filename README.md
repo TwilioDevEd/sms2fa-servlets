@@ -6,7 +6,7 @@ SMS Two Factor Authentication implementation with Servlets and Twilio
 
 ## Requirements
 
-** [Java 8](http://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html)
+[Java 8](http://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html)
 
 ## Local Development
 
