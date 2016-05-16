@@ -2,10 +2,10 @@ package com.twilio.sms2fa.application.servlets;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.twilio.sdk.TwilioRestException;
 import com.twilio.sms2fa.application.constants.ExternalResource;
+import com.twilio.sms2fa.application.constants.InternalResource;
 import com.twilio.sms2fa.application.util.ServletUtil;
-import com.twilio.sms2fa.domain.exception.WrongUserPasswordException;
+import com.twilio.sms2fa.domain.exception.DomainException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.service.LogIn;
 
@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import static com.twilio.sms2fa.application.constants.InternalResource
-        .SESSIONS_NEW_JSP;
 
 @Singleton
 public class SessionsServlet extends HttpServlet {
@@ -38,9 +35,9 @@ public class SessionsServlet extends HttpServlet {
             User user = logIn.authenticate(email, password);
             request.getSession().setAttribute("user", user);
             response.sendRedirect(ExternalResource.CONFIRMATIONS_NEW.getPath());
-        } catch (WrongUserPasswordException | TwilioRestException e) {
+        } catch (DomainException e) {
             ServletUtil.handleException(e, request, response,
-                    SESSIONS_NEW_JSP.getPath());
+                    InternalResource.SESSIONS_NEW_JSP.getPath());
         }
     }
 }

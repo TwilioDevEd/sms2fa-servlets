@@ -1,6 +1,5 @@
 package com.twilio.sms2fa.application.util;
 
-import com.twilio.sdk.TwilioRestException;
 import com.twilio.sms2fa.domain.exception.DomainException;
 import org.slf4j.Logger;
 
@@ -12,7 +11,6 @@ import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 
 import static com.twilio.sms2fa.application.util.ValidationUtil.extractMessage;
-import static java.lang.String.format;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public final class ServletUtil {
@@ -29,10 +27,6 @@ public final class ServletUtil {
         if (e instanceof DomainException) {
             DomainException de = (DomainException) e;
             handle(request, response, forwardToJsp, de.getMessage());
-        } else if (e instanceof TwilioRestException) {
-            TwilioRestException tre = (TwilioRestException) e;
-            handle(request, response, forwardToJsp, format(
-                    "%s: %s", tre.getErrorCode(), tre.getErrorMessage()));
         } else if (e instanceof ConstraintViolationException) {
             ConstraintViolationException cve = (ConstraintViolationException) e;
             handle(request, response, forwardToJsp, extractMessage(cve));

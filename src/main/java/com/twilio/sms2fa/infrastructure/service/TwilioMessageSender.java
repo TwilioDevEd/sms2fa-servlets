@@ -6,6 +6,7 @@ import com.google.inject.name.Named;
 import com.twilio.sdk.TwilioRestException;
 import com.twilio.sdk.resource.factory.MessageFactory;
 import com.twilio.sdk.resource.instance.Message;
+import com.twilio.sms2fa.domain.exception.MessageSenderException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.service.MessageSender;
 import org.apache.http.NameValuePair;
@@ -35,13 +36,17 @@ public class TwilioMessageSender implements MessageSender {
     }
 
     @Override
-    public final boolean sendCode(final User user) throws TwilioRestException {
-        List<NameValuePair> params = asList(
-                new BasicNameValuePair(FROM, fromPhoneNumber),
-                new BasicNameValuePair(TO, user.getPhoneNumber()),
-                new BasicNameValuePair(BODY, user.getVerificationCode())
-        );
-        Message sms = messageFactory.create(params);
-        return QUEUED.equals(sms.getStatus());
+    public final boolean sendCode(final User user) {
+        try {
+            List<NameValuePair> params = asList(
+                    new BasicNameValuePair(FROM, fromPhoneNumber),
+                    new BasicNameValuePair(TO, user.getPhoneNumber()),
+                    new BasicNameValuePair(BODY, user.getVerificationCode())
+            );
+            Message sms = messageFactory.create(params);
+            return QUEUED.equals(sms.getStatus());
+        } catch (TwilioRestException e) {
+            throw new MessageSenderException(e.getErrorMessage(), e);
+        }
     }
 }

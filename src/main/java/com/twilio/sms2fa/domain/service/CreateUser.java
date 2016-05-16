@@ -2,7 +2,6 @@ package com.twilio.sms2fa.domain.service;
 
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
-import com.twilio.sdk.TwilioRestException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.repository.UserRepository;
 
@@ -22,7 +21,7 @@ public class CreateUser {
     }
 
     @Transactional
-    public User create(@Valid final User user) throws TwilioRestException {
+    public User create(@Valid final User user) {
         User savedUser = userRepository.save(user);
         messageSender.sendCode(savedUser);
         return savedUser;

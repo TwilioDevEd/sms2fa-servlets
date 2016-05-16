@@ -1,6 +1,5 @@
 package com.twilio.sms2fa.application.util;
 
-import com.twilio.sdk.TwilioRestException;
 import com.twilio.sms2fa.application.servlets.StubbedConstraintViolation;
 import com.twilio.sms2fa.domain.exception.WrongUserPasswordException;
 import org.junit.Before;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 
 import static org.mockito.Mockito.verify;
@@ -30,7 +28,6 @@ public class ServletUtilTest {
     private HttpServletResponse response;
     @Mock
     private RequestDispatcher requestDispatcher;
-
 
     @Before
     public void setUp() {
@@ -61,17 +58,6 @@ public class ServletUtilTest {
 
         verify(request).setAttribute("errorMessage",
                 "SomethingElse");
-        verify(requestDispatcher).forward(request, response);
-    }
-
-    @Test
-    public void shouldHandleTwilioRestClientException() throws
-            ServletException, IOException {
-        TwilioRestException tre = new TwilioRestException("Error", BigDecimal
-                .TEN.intValue());
-        ServletUtil.handleException(tre, request, response, "index.jsp");
-
-        verify(request).setAttribute("errorMessage", "10: Error");
         verify(requestDispatcher).forward(request, response);
     }
 

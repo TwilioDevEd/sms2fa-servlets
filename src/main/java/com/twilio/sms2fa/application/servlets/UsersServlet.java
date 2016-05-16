@@ -2,8 +2,10 @@ package com.twilio.sms2fa.application.servlets;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.twilio.sdk.TwilioRestException;
+import com.twilio.sms2fa.application.constants.ExternalResource;
+import com.twilio.sms2fa.application.constants.InternalResource;
 import com.twilio.sms2fa.application.util.ServletUtil;
+import com.twilio.sms2fa.domain.exception.DomainException;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.service.CreateUser;
 
@@ -14,11 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
-
-import static com.twilio.sms2fa.application.constants.ExternalResource
-        .CONFIRMATIONS_NEW;
-import static com.twilio.sms2fa.application.constants.InternalResource
-        .USERS_NEW_JSP;
 
 @Singleton
 public class UsersServlet extends HttpServlet {
@@ -43,11 +40,11 @@ public class UsersServlet extends HttpServlet {
             User user = createUser.create(new User(firstName, lastName, email,
                     phoneNumber, password));
             request.getSession().setAttribute("user", user);
-            response.sendRedirect(CONFIRMATIONS_NEW.getPath());
-        } catch (ConstraintViolationException | TwilioRestException
+            response.sendRedirect(ExternalResource.CONFIRMATIONS_NEW.getPath());
+        } catch (ConstraintViolationException | DomainException
                 | PersistenceException e) {
             ServletUtil.handleException(e, request, response,
-                    USERS_NEW_JSP.getPath());
+                    InternalResource.USERS_NEW_JSP.getPath());
         }
 
     }
