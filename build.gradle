@@ -1,6 +1,5 @@
 plugins {
     id 'checkstyle'
-    id 'idea'
     id 'java'
     id 'war'
     id 'org.akhikhl.gretty' version '1.2.4'
