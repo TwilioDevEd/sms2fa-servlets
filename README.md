@@ -1,6 +1,6 @@
 # SMS Two Factor Authentication with Servlets
 
-SMS Two Factor Authentication implementation with Servlets and Twilio
+SMS Two Factor Authentication implementation with Servlets and Twilio.
 
 [![Build Status](https://travis-ci.org/TwilioDevEd/sms2fa-servlets.svg?branch=master)](https://travis-ci.org/TwilioDevEd/sms2fa-servlets)
 
