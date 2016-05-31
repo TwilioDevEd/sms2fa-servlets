@@ -14,15 +14,16 @@
     Adding two-factor authentication (2FA) to your web application increases the
     security of your user's data. [Multi-factor
     authentication](http://en.wikipedia.org/wiki/Multi-factor_authentication)
-    determines the identity of a user in two steps: 
+    determines the identity of a user in two steps:
 
     1. First we validate the user with an email and password.
 
-    2. Second, we validate using a mobile device, by sending them a one-time **verification code**.
+    2. Second we validate by sending them a one-time **verification code** to a mobile device.
 
     Once our user enters the verification code, we know they have received the SMS, and indeed are who they say they are. This is a standard SMS implementation.
 
-    For a slightly more advanced implementation using [Authy](https://www.twilio.com/authy) One-Touch checkout this [tutorial](/docs/tutorials/walkthrough/two-factor-authentication/java/servlets).
+    For a slightly more advanced implementation using [Authy](https://www.twilio.com/authy) One-Touch take a look at this
+    [tutorial](/docs/tutorials/walkthrough/two-factor-authentication/java/servlets).
 
     Let's get started!
 
@@ -42,7 +43,7 @@
     Once our user logs in we need to send them a _verification code_.
 
     To generate our _verification code_ we use `java.util.Random` class.
-    Considering the current implementation our _6-digit verification code_ 
+    Considering the current implementation our _6-digit verification code_
     could be any number between **100000** and **999999**.
 
     Next let's look at how we would send this in an SMS with Twilio.
@@ -52,7 +53,7 @@
     **See Also:**
 
     * [Java 8 Docs: java.util.Random](//docs.oracle.com/javase/8/docs/api/java/util/Random.html)
- 
+
 .step(
   data-title='Obtaining MessageFactory Instance',
   data-file='src/main/java/com/twilio/sms2fa/infrastructure/guice/Sms2faServiceModule.java',
@@ -64,7 +65,7 @@
 
     First we have to create an instance of a **Twilio Client** with our credentials.
 
-    You can find your credentials at your [Twilio Account](//www.twilio.com/user/account/phone-numbers/incoming).
+    You can find your credentials on your [Twilio Account](//www.twilio.com/user/account/phone-numbers/incoming).
 
     Then you can just get the _Account_ and the _MessageFactory_.
 
@@ -73,7 +74,7 @@
     **See Also:**
 
     * [Twilio Java Helper Library](//www.twilio.com/docs/libraries/java/)
-    
+
 .step(
   data-title='Sending a Verification Code',
   data-file='src/main/java/com/twilio/sms2fa/infrastructure/service/TwilioMessageSender.java',
@@ -81,7 +82,8 @@
   :markdown
     ## Sending a Verification Code
 
-    Once we have the _MessageFactory_ instance, all we have to do to send an SMS using the REST API is to call `messageFactory.create()` with the necessary parameters. 
+    Once we have the _MessageFactory_ instance, all we have to do to is send an SMS. This will be done
+    using the REST API that will call `messageFactory.create()` with the necessary parameters.
 
     In this example, the class `TwilioMessageSender` is the one responsible for it.
 
@@ -99,14 +101,15 @@
   :markdown
     ## Registering a User
 
-    When a **user** signs up for our website, it should stores the **user** information and sends them a _verification code_.
+    When a **user** signs up on our website, the prior should store the **user**'s
+    information and send them a _verification code_.
 
     In order to do two-factor authentication we need to make sure we ask for the
     user's **phone number**.
 
     One thing to notice is that when the User constructor is called, [the verification code is generated](//github.com/TwilioDevEd/sms2fa-servlets/blob/master/src/main/java/com/twilio/sms2fa/domain/model/User.java#L64).
 
-    Let's see how `CreateUser#create` method is implemented.
+    Let's see how the `CreateUser#create` method is implemented.
 
 
     ---
@@ -122,9 +125,9 @@
   :markdown
     ## Saving and Sending SMS
 
-    Here we just store the user (and his verification code accordingly) and send sms message.
+    In this step all we will do is store the user (and his verification code accordingly) and send an SMS message.
 
-    Noticed that _MessageSender_ is implemented by _TwilioMessageSender_, that we mentioned previously. 
+    Noticed that _MessageSender_ is implemented by _TwilioMessageSender_, that we mentioned previously.
 
     Let's take a look on how to implement the actual 2-Step verification.
 
@@ -133,7 +136,7 @@
     **See Also:**
 
     * [Java Bean Validation](//docs.oracle.com/javaee/6/tutorial/doc/gircz.html)
-    
+
 .step(
   data-title='Implementing the 2-Step Verification',
   data-file='src/main/java/com/twilio/sms2fa/application/servlets/ConfirmationsServlet.java',
@@ -159,7 +162,7 @@
 
     That's it! We've just implemented an SMS Two-Factor Authenticated
     application. If you're a Java developer working with Twilio, you might want
-    to check out these other tutorials.
+    to check these other tutorials out.
 
     [**Workflow Automation**](//www.twilio.com/docs/tutorials/walkthrough/workflow-automation/java/servlets)
 
@@ -175,5 +178,5 @@
 
     ### Did this help?
 
-    Thanks for checking out this tutorial! If you have any feedback
+    Thanks for checking this tutorial out! If you have any feedback
     to share with us, we'd love to hear it. [Contact the Twilio Developer Education Team](mailto:deved-oss@twilio.com) to let us know what you think.
