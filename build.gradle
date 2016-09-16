@@ -14,7 +14,9 @@ dependencies {
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 
     compile 'org.slf4j:slf4j-api:1.7.21'
-    compile 'com.twilio.sdk:twilio-java-sdk:5.2.1'
+
+    compile 'com.twilio.sdk:twilio:7.0.0-rc-25'
+
     compile 'com.google.inject.extensions:guice-servlet:4.0'
     compile 'com.google.inject.extensions:guice-persist:4.0'
 
@@ -26,6 +28,7 @@ dependencies {
     compile 'ru.vyarus:guice-validator:1.2.0'
     compile 'org.hibernate:hibernate-validator:5.2.4.Final'
     compile 'javax.el:el-api:2.2.1-b04'
+    compile 'org.apache.commons:commons-lang3:3.4'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-core:1.3'

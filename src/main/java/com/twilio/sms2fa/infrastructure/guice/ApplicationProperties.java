@@ -1,5 +1,6 @@
 package com.twilio.sms2fa.infrastructure.guice;
 
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Properties;
