@@ -3,50 +3,38 @@ package com.twilio.sms2fa.infrastructure.service;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import com.twilio.sdk.TwilioRestException;
-import com.twilio.sdk.resource.factory.MessageFactory;
-import com.twilio.sdk.resource.instance.Message;
-import com.twilio.sms2fa.domain.exception.MessageSenderException;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.rest.api.v2010.account.MessageCreator;
 import com.twilio.sms2fa.domain.model.User;
 import com.twilio.sms2fa.domain.service.MessageSender;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.util.List;
-
-import static java.util.Arrays.asList;
+import com.twilio.type.PhoneNumber;
 
 @Singleton
 public class TwilioMessageSender implements MessageSender {
 
-    private static final String FROM = "From";
-    private static final String TO = "To";
-    private static final String BODY = "Body";
     private static final String QUEUED = "queued";
 
-    private MessageFactory messageFactory;
-    private String fromPhoneNumber;
+    private TwilioRestClient twilioRestClient;
+    private PhoneNumber fromPhoneNumber;
 
     @Inject
     public TwilioMessageSender(
-            final MessageFactory messageFactory,
+            final TwilioRestClient twilioRestClient,
             @Named("TWILIO_PHONE_NUMBER") final String fromPhoneNumber) {
-        this.messageFactory = messageFactory;
-        this.fromPhoneNumber = fromPhoneNumber;
+        this.twilioRestClient = twilioRestClient;
+        this.fromPhoneNumber = new PhoneNumber(fromPhoneNumber);
     }
 
     @Override
     public final boolean sendCode(final User user) {
-        try {
-            List<NameValuePair> params = asList(
-                    new BasicNameValuePair(FROM, fromPhoneNumber),
-                    new BasicNameValuePair(TO, user.getPhoneNumber()),
-                    new BasicNameValuePair(BODY, user.getVerificationCode())
-            );
-            Message sms = messageFactory.create(params);
-            return QUEUED.equals(sms.getStatus());
-        } catch (TwilioRestException e) {
-            throw new MessageSenderException(e.getErrorMessage(), e);
-        }
+        final PhoneNumber to = new PhoneNumber(user.getPhoneNumber());
+        final PhoneNumber from = fromPhoneNumber;
+        final String body = user.getVerificationCode();
+
+        Message message = new MessageCreator(to, from, body)
+                .execute(twilioRestClient);
+
+        return QUEUED.equals(message.getStatus());
     }
 }
