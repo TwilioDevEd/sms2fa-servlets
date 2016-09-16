@@ -54,19 +54,17 @@
     * [Java 8 Docs: java.util.Random](//docs.oracle.com/javase/8/docs/api/java/util/Random.html)
  
 .step(
-  data-title='Obtaining MessageFactory Instance',
+  data-title='Obtaining TwilioRestClient Instance',
   data-file='src/main/java/com/twilio/sms2fa/infrastructure/guice/Sms2faServiceModule.java',
-  data-highlight='35-39')
+  data-highlight='29-36')
   :markdown
-    ## Obtaining _MessageFactory_ Instance
+    ## Obtaining _TwilioRestClient_ Instance
 
     The Twilio helper library allows us to easily send an SMS.
 
     First we have to create an instance of a **Twilio Client** with our credentials.
 
     You can find your credentials at your [Twilio Account](//www.twilio.com/user/account/phone-numbers/incoming).
-
-    Then you can just get the _Account_ and the _MessageFactory_.
 
     ---
 
@@ -77,11 +75,13 @@
 .step(
   data-title='Sending a Verification Code',
   data-file='src/main/java/com/twilio/sms2fa/infrastructure/service/TwilioMessageSender.java',
-  data-highlight='20,41-46')
+  data-highlight='14,30-39')
   :markdown
     ## Sending a Verification Code
 
-    Once we have the _MessageFactory_ instance, all we have to do to send an SMS using the REST API is to call `messageFactory.create()` with the necessary parameters. 
+    Once we have the _MessageCreator_ instance, created with the necessary parameters,
+    all we have to do to send an SMS using the REST API is to call `execute` method passing
+    the twilioRestClient instance.
 
     In this example, the class `TwilioMessageSender` is the one responsible for it.
 
