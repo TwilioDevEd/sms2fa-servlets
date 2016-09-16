@@ -10,8 +10,10 @@ import com.twilio.sms2fa.domain.service.MessageSender;
 import com.twilio.sms2fa.infrastructure.service.TwilioMessageSender;
 import ru.vyarus.guice.validator.ImplicitValidationModule;
 
-import static com.twilio.sms2fa.infrastructure.guice.ApplicationProperties.TWILIO_ACCOUNT_SID;
-import static com.twilio.sms2fa.infrastructure.guice.ApplicationProperties.TWILIO_AUTH_TOKEN;
+import static com.twilio.sms2fa.infrastructure.guice.ApplicationProperties
+        .TWILIO_ACCOUNT_SID;
+import static com.twilio.sms2fa.infrastructure.guice.ApplicationProperties
+        .TWILIO_AUTH_TOKEN;
 
 class Sms2faServiceModule extends AbstractModule {
 
