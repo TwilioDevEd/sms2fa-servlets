@@ -33,7 +33,7 @@ public class TwilioMessageSender implements MessageSender {
         final String body = user.getVerificationCode();
 
         Message message = new MessageCreator(to, from, body)
-                .execute(twilioRestClient);
+                .create(twilioRestClient);
 
         return QUEUED.equals(message.getStatus());
     }
