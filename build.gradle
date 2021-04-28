@@ -20,7 +20,7 @@ dependencies {
     compile 'com.google.inject.extensions:guice-persist:4.0'
 
     compile 'org.eclipse.persistence:javax.persistence:2.1.1'
-    compile 'org.eclipse.persistence:org.eclipse.persistence.jpa:2.6.3'
+    compile 'org.eclipse.persistence:org.eclipse.persistence.jpa:3.0.1'
     
     compile 'org.xerial:sqlite-jdbc:3.8.11.2'
     compile 'de.svenkubiak:jBCrypt:0.4'
