@@ -17,7 +17,7 @@ dependencies {
     compile 'com.twilio.sdk:twilio:7.0.0-rc-29'
 
     compile 'com.google.inject.extensions:guice-servlet:4.0'
-    compile 'com.google.inject.extensions:guice-persist:4.0'
+    compile 'com.google.inject.extensions:guice-persist:5.1.0'
 
     compile 'org.eclipse.persistence:javax.persistence:2.1.1'
     compile 'org.eclipse.persistence:org.eclipse.persistence.jpa:2.6.3'
