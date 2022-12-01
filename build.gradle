@@ -14,7 +14,7 @@ dependencies {
 
     compile 'org.slf4j:slf4j-api:1.7.21'
 
-    compile 'com.twilio.sdk:twilio:7.0.0-rc-29'
+    compile 'com.twilio.sdk:twilio:9.1.4'
 
     compile 'com.google.inject.extensions:guice-servlet:4.0'
     compile 'com.google.inject.extensions:guice-persist:4.0'
